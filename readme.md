@@ -3,6 +3,7 @@
 bower install
 
 npm install
+
 static
 
 http://localhost:8080
