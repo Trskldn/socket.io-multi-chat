@@ -1,6 +1,7 @@
 #backbone-multi-chat-client
 
 bower install
+
 npm install
 static
 
