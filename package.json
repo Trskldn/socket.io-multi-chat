@@ -1,0 +1,13 @@
+{
+  "name": "backbone-multi-chat-client",
+  "version": "0.0.1",
+  "description": "backbone-multi-chat-client",
+  "private": false,
+  "scripts":{
+    "start" : "node node_modules/static/bin/static"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

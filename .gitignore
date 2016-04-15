@@ -1,0 +1,6 @@
+.idea
+.imdone
+**/*.DS_store
+node_modules
+components
+*.log
