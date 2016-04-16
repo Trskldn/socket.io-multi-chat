@@ -4,7 +4,7 @@
   "description": "backbone-multi-chat-client",
   "private": false,
   "scripts":{
-    "start" : "node node_modules/static/bin/static"
+    "start" : "node server.js"
   },
   "dependencies": {
   },
