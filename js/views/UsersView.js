@@ -2,6 +2,6 @@ define(['Backbone', "text!templates/UsersView.html"], function(Backbone, UsersVi
 	var UsersView =  Backbone.Layout.extend({
 		template: UsersViewTmpl
 	});
-	
+
 	return UsersView;
 });

@@ -1,4 +1,4 @@
-require(['Backbone'], function(Backbone) {
+define(['Backbone'], function(Backbone) {
 
 	var Message = Backbone.Model.extend({
 		defaults:{

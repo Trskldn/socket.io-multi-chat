@@ -1,15 +1,18 @@
 define(
 	['Backbone',
+	'router',
 	'socket.io',
-	'common/backbone.model.io.patch',
-	'Layoutmanager',
-], function( Backbone, io ) {
-
+	'models/user',
+	'core/backone.socketio.sync',
+	//'common/backbone.model.io.patch',
+	'Layoutmanager'
+], function( Backbone, Route, io, UserModel ) {
 
 	var App = function () {
+		this._started = false;
 		this.initialize();
-		this.started = false;
 	};
+
 	_.extend(App.prototype, Backbone.Events, {
 		initialize: function () {
 			Backbone.Layout.configure({
@@ -17,14 +20,16 @@ define(
 					 return _.template(path);
 				}
 			});
-
-			this.socket = io('http://localhost');
+			// this.socket = io('http://localhost');
+			this.user = new UserModel({url: "/me"})
 		},
 
 		start: function() {
-			if (this.started) return;
+			if (this._started) return;
+			this.route = new Route();
+			Backbone.history.start({ pushState: true });
 			console.log('applications start');
-			this.started = true;
+			this._started = true;
 		}
 	});
 

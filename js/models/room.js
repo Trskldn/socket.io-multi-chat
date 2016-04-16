@@ -1,4 +1,4 @@
-require(['Backbone'], function(Backbone) {
+define(['Backbone'], function(Backbone) {
 
 	var Room = Backbone.Model.extend({
 		defaults:{

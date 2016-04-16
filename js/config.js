@@ -32,12 +32,16 @@ require.config({
 		jQuery: './../components/jquery/jquery',
 		Underscore: './../components/underscore/underscore',
 		Backbone: './../components/backbone/backbone',
-		Layoutmanager: './common/backbone.layoutmanager',
+		Layoutmanager: './core/backbone.layoutmanager',
 		bootstrap: "./../components/bootstrap/dist/js/bootstrap",
 		'socket.io': "./../components/socket.io-client/socket.io",
-		text: "./../components/text/text"
+		text: "./../components/text/text",
+		"Underscore.string": "./../components/underscore.string/underscore.string"
 	}
 });
 
 
-require(['main']);
+require(['app'],	function (app) {
+	window.app = app;
+	app.start();
+});

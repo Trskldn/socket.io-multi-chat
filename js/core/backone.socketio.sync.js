@@ -3,11 +3,12 @@
  *
  * Overrides the default transport for Backbone syncing to use websockets via socket.io.
  */
- require(['Backbone', 'jQuery', 'Underscore', 'socketio'], function (Backbone, $, _, io) {
+ require(['Backbone', 'socket.io'], function (Backbone, io) {
    var urlError = function(){
        throw new Error('A "url" property or function must be specified.');
    },
-       eventEmit = io.EventEmitter.prototype.emit,
+      //  eventEmit = io.EventEmitter.prototype.emit,
+       eventEmit = io.Socket.prototype.emit,
        ajaxSync = Backbone.sync;
 
    /**
@@ -70,7 +71,7 @@
     */
    Backbone.Model.prototype.namespace = function(url){
        url = url || this.url();
-       return _.trim(url, '/').replace('/', ':') + ":";
+       return url.replace(new RegExp('^\/+|\/+$', 'g'), '').replace('/', ':') + ":";
    };
 
    /**
@@ -78,12 +79,12 @@
     * wildcard ('*') character. Now, socket.on('*') will catch any event, with the name of the caught event
     * passed to the handler as the first argument.
    */
-   io.EventEmitter.prototype.emit = function(name){
+   io.Socket.prototype.emit = function(name){
        var args = Array.prototype.slice.call(arguments, 1);
 
        eventEmit.apply(this, ['*', name].concat(args));
        eventEmit.apply(this, [name].concat(args));
    };
-   io.SocketNamespace.prototype.$emit = io.EventEmitter.prototype.emit;
+  //  io.SocketNamespace.prototype.$emit = io.Socket.prototype.emit;
 
  });
