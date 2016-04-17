@@ -1,10 +1,10 @@
 define(['Backbone'], function(Backbone) {
 
 	var Room = Backbone.Model.extend({
-		defaults:{
-			messages: new MessagesCollection(),
-			users: new UsersCollection(),
-			topic: ''
+		defaults: function (){
+			this.messages = new MessagesCollection();
+			this.users = new UsersCollection();
+			this.topic = '';
 		}
 	});
 

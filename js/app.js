@@ -3,10 +3,11 @@ define(
 	'router',
 	'socket.io',
 	'models/user',
+	'collections/rooms',
 	'core/backone.socketio.sync',
 	//'common/backbone.model.io.patch',
 	'Layoutmanager'
-], function( Backbone, Route, io, UserModel ) {
+], function( Backbone, Route, io, UserModel, RoomsCollection ) {
 
 	var App = function () {
 		this._started = false;
@@ -20,8 +21,11 @@ define(
 					 return _.template(path);
 				}
 			});
-			// this.socket = io('http://localhost');
-			this.user = new UserModel({url: "/me"})
+			this.socket = io('http://localhost:8080');
+			this.user = new UserModel({url: "/me"});
+			this.db = {
+				rooms: new RoomsCollection()
+			}
 		},
 
 		start: function() {
