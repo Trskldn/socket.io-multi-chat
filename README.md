@@ -1,7 +1,7 @@
 #backbone-socketio-chat-client
 
-bower install
-npm install
-static
+1.bower install
+2.npm install
+3.npm start
 
 http://localhost:8080
