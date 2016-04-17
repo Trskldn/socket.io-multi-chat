@@ -1,7 +1,7 @@
-require(['Backbone', 'models/room'], function(Backbone, RoomModel) {
+define(['Backbone', 'models/room'], function(Backbone, RoomModel) {
 
 	var Rooms = Backbone.Collection.extend({
-		model: RoomModel;
+		model: RoomModel
 	});
 
 	return Rooms;
