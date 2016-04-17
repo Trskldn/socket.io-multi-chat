@@ -39,7 +39,7 @@
            opts.data.id = model.id;
        }
        // Determine which websocket to use - set in options or on model
-       socket = opts.socket || model.socket;
+       socket = opts.socket || model.socket || app.socket;
        // Add a listener for our namespaced method, and resolve or reject our deferred based on the response
        socket.once(namespace+method, function(res){
            var success = (res && res.success); // Expects server json response to contain a boolean 'success' field
