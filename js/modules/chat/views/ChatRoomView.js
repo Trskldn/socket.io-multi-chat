@@ -1,6 +1,6 @@
 define([
 'Backbone', 
-"text!templates/ChatRoomView.html", 
+"text!./../templates/ChatRoomView.html", 
 './MessagesView', 
 './UsersView',
 'core/common'],

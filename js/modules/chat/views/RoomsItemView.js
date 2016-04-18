@@ -1,5 +1,5 @@
 define(['Backbone', 
-	"text!templates/RoomsItemView.html",
+	"text!./../templates/RoomsItemView.html",
 	"core/common"
 	],	function(Backbone, RoomsItemViewTmpl, Common) {
 

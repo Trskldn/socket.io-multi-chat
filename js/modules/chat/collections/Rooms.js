@@ -1,4 +1,4 @@
-define(['Backbone', 'models/Room'], function(Backbone, RoomModel) {
+define(['Backbone', './../models/Room'], function(Backbone, RoomModel) {
 
 	var Rooms = Backbone.Collection.extend({
 		url: "/contacts",

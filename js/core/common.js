@@ -100,7 +100,7 @@ define(['Backbone'], function(Backbone){
       if (this.template) {
         renderedHtml = this._renderTemplate();
         this.attachElContent(renderedHtml);
-        this.$childViewContainer = this.$el.find(this.childViewContainer);
+        this.$childViewContainer = this.$el.find(this.childViewContainer)[0];
       }
       // Clean up any previous elements rendered
       this.closeChildren();
