@@ -1,13 +1,14 @@
-define(
-	['Backbone',
-	'router',
-	'socket.io',
-	'models/user',
-	'collections/rooms',
-	'core/backone.socketio.sync',
-	//'common/backbone.model.io.patch',
-	'Layoutmanager'
-], function( Backbone, Route, io, UserModel, RoomsCollection ) {
+define([
+'Backbone',
+'router',
+'socket.io',
+'core/common',
+// 'models/user',
+// 'collections/rooms',
+'core/backone.socketio.sync'
+//'common/backbone.model.io.patch',
+//	'Layoutmanager'
+], function( Backbone, Route, io, Common, UserModel, RoomsCollection) {
 
 	var App = function () {
 		this._started = false;
@@ -16,22 +17,18 @@ define(
 
 	_.extend(App.prototype, Backbone.Events, {
 		initialize: function () {
-			Backbone.Layout.configure({
-				fetchTemplate: function(path) {
-					 return _.template(path);
-				}
-			});
+			this.main = new Common.Region({el: "#main"});
 			this.socket = io('http://localhost:8080');
-			this.user = new UserModel({url: "/me"});
-			this.db = {
-				rooms: new RoomsCollection()
-			}
+			// this.user = new UserModel({url: "/me"});
+			// this.db = {
+			// 	rooms: new RoomsCollection()
+			// }
 		},
-
+	
 		start: function() {
 			if (this._started) return;
-			this.route = new Route();
-			Backbone.history.start({ pushState: true });
+			this.route = new Route({mainRegion: this.main});
+			Backbone.history.start({ pushState: false });
 			console.log('applications start');
 			this._started = true;
 		}

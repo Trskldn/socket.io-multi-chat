@@ -1,5 +1,5 @@
 require.config({
-	// baseUrl: '/js/',
+	baseUrl: '/js/',
 
 	shim: {
 		'jQuery': {
@@ -15,9 +15,9 @@ require.config({
 			exports: 'Backbone'
 		},
 
-		'Layoutmanager': {
-			deps: ['Backbone']
-		},
+		// 'Layoutmanager': {
+		// 	deps: ['Backbone']
+		// },
 
 		"bootstrap" : {
 			"deps" :['jQuery']
@@ -32,7 +32,7 @@ require.config({
 		jQuery: './../components/jquery/jquery',
 		Underscore: './../components/underscore/underscore',
 		Backbone: './../components/backbone/backbone',
-		Layoutmanager: './core/backbone.layoutmanager',
+//		Layoutmanager: './core/backbone.layoutmanager',
 		bootstrap: "./../components/bootstrap/dist/js/bootstrap",
 		'socket.io': "./../components/socket.io-client/socket.io",
 		text: "./../components/text/text",

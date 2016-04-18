@@ -1,4 +1,4 @@
-define(['Backbone', 'models/message'], function(Backbone, MessageModel) {
+define(['Backbone', 'models/Message'], function(Backbone, MessageModel) {
 
 	var Messages = Backbone.Collection.extend({
 		model: MessageModel
