@@ -1,6 +1,6 @@
 define(['Backbone', './router'], function(Backbone, Router) {	
 	var AuthApp = function(options) {
-		this.mainRegion = options.mainRegion;
+		this.region = options.region;
 		this.router = new Router({app: this});
 		Backbone.history.loadUrl();
 		
