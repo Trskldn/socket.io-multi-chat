@@ -1,7 +1,8 @@
 define([
 'Backbone',
+'shared/views/NavHeaderView'
 // 'modules/chat/router'
-], function( Backbone ) {
+], function( Backbone, NavHeaderView ) {
 
 	return Backbone.Router.extend({
 		routes: {
@@ -19,6 +20,7 @@ define([
 			// this.currentApp = void 0;
 			this._modules = {};
 			this.options = options;
+			this.renderHeader();
 		},
 
 		testhomePage: function() {
@@ -37,7 +39,7 @@ define([
 			require(['modules/'+ moduleName+'/app'], function(Module) {
 				if (!self._modules[moduleName]) {
 					console.log(moduleName, 'loaded');
-					var module = new Module({mainRegion: self.options.mainRegion});
+					var module = new Module({region: self.options.region});
 					module.start();
 					self._modules[moduleName] = module;
 				} else {
@@ -51,6 +53,11 @@ define([
 		    	Backbone.history.navigate("/");
 			});
 			// return false;
+		},
+
+		renderHeader: function() {
+			var navHeaderView = new NavHeaderView();
+			app.navRegion.show(navHeaderView);
 		}
 	});
 });

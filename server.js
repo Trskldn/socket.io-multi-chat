@@ -36,7 +36,41 @@ server.listen(port, function(){
   
 
 var contacts = [
-{name: 'name23',id: 1},
+{name: 'name23',id: 1,
+users:[
+{
+  name: 'name'
+},
+{
+  name: 'name2'
+},
+{
+  name: 'name3'
+},
+],
+messages:[
+{
+  text: 'hi!',
+  date: new Date(),
+  user: 'name'
+},
+{
+  text: 'hi!',
+  date: new Date(),
+  user: 'name'
+},
+{
+  text: 'hi!',
+  date: new Date(),
+  user: 'name2'
+},
+{
+  text: 'hi!',
+  date: new Date(),
+  user: 'name3'
+}
+]
+},
 {name: 'name2',id: 2},
 {name: 'name3',id: 3},
 {name: 'name4',id: 4},

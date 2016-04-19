@@ -5,6 +5,10 @@ define(['Backbone', './../models/Room'], function(Backbone, RoomModel) {
 		model: RoomModel,
 
 		parse: function(data) {
+			_.each(data.data,function(room) {
+				room.messages = new Backbone.Collection(room.messages)
+				room.users = new Backbone.Collection(room.users)
+			});
 			return data.data;
 		}
 	});

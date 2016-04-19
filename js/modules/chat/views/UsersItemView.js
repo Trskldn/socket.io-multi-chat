@@ -1,15 +1,13 @@
 define(['Backbone', 
-	"text!./../templates/RoomsItemView.html",
+	"text!./../templates/UsersItemView.html",
 	"core/common"
-	],	function(Backbone, RoomsItemViewTmpl, Common) {
+	],	function(Backbone, UsersItemTmpl, Common) {
 
-		var RoomsItemView =  Common.ModelView.extend({
-			tagName: 'a',
-			className: 'list-group-item',
-			template: RoomsItemViewTmpl,
+		var UsersItem =  Common.ModelView.extend({
+			template: UsersItemTmpl,
 
 			events: {
-				'click': '_onRoomClick'
+				'click a': '_onRoomClick'
 			},
 
 			initialize: function() {
@@ -24,5 +22,5 @@ define(['Backbone',
 			}
 		});
 
-		return RoomsItemView;
+		return UsersItem;
 });

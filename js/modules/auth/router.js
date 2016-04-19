@@ -1,4 +1,4 @@
-define(['Backbone'], function(Backbone) {
+define(['Backbone', './views/LoginView'], function(Backbone, LoginView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			'auth/login': 'showLogin',
@@ -17,6 +17,8 @@ define(['Backbone'], function(Backbone) {
 
 		showLogin: function() {
 			console.log('showLogin');
+			var loginView = new LoginView();
+			this.options.app.region.show(loginView);
 		},
 
 		showSignup: function() {
