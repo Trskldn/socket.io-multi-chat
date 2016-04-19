@@ -4,12 +4,9 @@
   "description": "backbone-multi-chat-client",
   "private": false,
   "scripts":{
-    "start" : "grunt"
+    "start" : "nodemon server.js"
   },
   "dependencies": {
-    "grunt": "0.4.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "include-all": "~0.1.3"
   },
   "devDependencies": {
   }

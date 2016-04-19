@@ -4,7 +4,6 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     io = require('socket.io')(server),
-    grunt = require('grunt'),
     port = 8080;
 
 
@@ -36,7 +35,7 @@ server.listen(port, function(){
   
 
 var contacts = [
-{name: 'name23',id: 1,
+{name: 'name44',id: 1,
 users:[
 {
   name: 'name'
