@@ -11,7 +11,7 @@ define(['Backbone', './views/HomePageView'], function(Backbone, HomePageView) {
 		homePage: function() {
 			console.log('homePage router from home app')
 			var v = new HomePageView();
-			this.options.app.mainRegion.show(v);
+			this.options.app.region.show(v);
 		}
 	});
 
