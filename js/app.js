@@ -1,5 +1,6 @@
 define([
 'Backbone',
+'core/view.registry',
 'router',
 'socket.io',
 'core/common',
@@ -8,11 +9,12 @@ define([
 'core/backone.socketio.sync'
 //'common/backbone.model.io.patch',
 //	'Layoutmanager'
-], function( Backbone, Route, io, Common, NavHeaderView) {
+], function( Backbone, registry, Route, io, Common) {
 
 	var App = function () {
 		this._started = false;
 		this.initialize();
+		window.reg  = registry;
 	};
 
 	_.extend(App.prototype, Backbone.Events, {

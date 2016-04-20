@@ -1,14 +1,6 @@
 define(['Backbone'], function(Backbone){
 
-  // var _ = require('underscore');
-  // var $ = require('jquery');
-  // var Backbone = require('Backbone');
-
   var ModelView =  Backbone.View.extend({
-    // initialize (options) {
-    //   if (options.template) this.template = options.template;
-    //   Backbone.View.prototype.initialize.apply(this, arguments);
-    // }
 
     attachElContent(html) {
       this.$el.html(html);
@@ -70,6 +62,8 @@ define(['Backbone'], function(Backbone){
      // template
 
     initialize(options) {
+      ModelView.prototype.initialize.apply(this, arguments);
+
       this.childViewContainer = this.childViewContainer || options && options.childViewContainer;
       // Keep track of rendered items
       this.children = {};
@@ -217,6 +211,7 @@ define(['Backbone'], function(Backbone){
   }
 
   var Layout = ModelView.extend({
+
     render() {
       // Clean up any rendered DOM
       this.closeRegions();

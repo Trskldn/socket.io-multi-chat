@@ -5,7 +5,10 @@ define(['Backbone',
 
 		var RoomsItemView =  Common.ModelView.extend({
 			tagName: 'a',
-			className: 'list-group-item',
+			className: function() {
+				return 'list-group-item ' + (this.model.get('selected') ? 'active' : ''); 
+			},
+
 			template: RoomsItemViewTmpl,
 
 			events: {
@@ -13,14 +16,20 @@ define(['Backbone',
 			},
 
 			initialize: function() {
-				// this.listenTo(this.model, 'destroy', _.bind(this.remove,this));
+				Common.ModelView.prototype.initialize.apply(this, arguments);
+				this.listenTo(this.model, 'change:selected', this._onSelectedChange, this);
+			},
+
+			_onSelectedChange: function() {
+				this.$el.toggleClass('active', this.model.get('selected'));
+			},
+
+			attributes: function() { 
+				return {href: '#'+this.model.url()};
 			},
 
 			_onRoomClick: function(evt) {
-				evt.preventDefault();
-				// console.log(arguments);
-				// this.model.destroy();
-				this.trigger('click', this.model);
+				// evt.preventDefault();
 			}
 		});
 
