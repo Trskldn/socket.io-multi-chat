@@ -18,13 +18,13 @@ define([
 			// 	new MainView({el: '#main'}).render();
 			// });
 			// this.currentApp = void 0;
+			this._currentModule = '';
 			this._modules = {};
 			this.options = options;
 			this.renderHeader();
 		},
 
 		testhomePage: function() {
-			console.log('home router from main router')
 			return false;
 		},
 
@@ -33,10 +33,15 @@ define([
 		},
 
 		loadModule: function(moduleName, hash) {
-			console.log('load ', moduleName);
+			console.log('loading module:', moduleName);
 			var self = this;
 
 			require(['modules/'+ moduleName+'/app'], function(Module) {
+				// if (self._currentModule != moduleName  &&
+				// 	self._modules[self._currentModule] &&
+				// 	self._modules[self._currentModule].close) {
+				// 		self._modules[self._currentModule].close();
+				// }
 				if (!self._modules[moduleName]) {
 					console.log(moduleName, 'loaded');
 					var module = new Module({region: self.options.region});
@@ -45,6 +50,7 @@ define([
 				} else {
 					console.log(moduleName,' already loaded');
 				}
+				self._currentModule = moduleName;
 				// if (self.currentApp instanceof app) {
 
 				// }

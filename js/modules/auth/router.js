@@ -16,7 +16,6 @@ define(['Backbone', './views/LoginView'], function(Backbone, LoginView) {
 		},
 
 		showLogin: function() {
-			console.log('showLogin');
 			var loginView = new LoginView();
 			this.options.app.region.show(loginView);
 		},
