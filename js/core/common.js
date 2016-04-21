@@ -1,14 +1,12 @@
 define(['Backbone'], function(Backbone){
 
-  var ModelView =  Backbone.View.extend({
-
-    attachElContent(html) {
+  var ModelView = Backbone.View.extend({
+    attachElContent: function(html) {
       this.$el.html(html);
-
       return this;
     },
 
-    _renderTemplate() {
+    _renderTemplate: function() {
       var data = this.serializeData();
       var renderedHtml;
 
@@ -25,7 +23,7 @@ define(['Backbone'], function(Backbone){
       return renderedHtml;   
     },
 
-    render() {
+    render: function() {
       // Get JSON representation of the model
       var renderedHtml = this._renderTemplate();
       this.attachElContent(renderedHtml);
@@ -40,12 +38,12 @@ define(['Backbone'], function(Backbone){
     // Compile template with underscore templates. This method
     // can be redefined to implemente another template engine
     // like Handlebars or Jade
-    compileTemplate() {
+    compileTemplate: function() {
       return _.template(this.template);
     },
 
     // Transform Model into JSON representation
-    serializeData() {
+    serializeData: function() {
       var data;
 
       // Only when model is available
@@ -54,17 +52,22 @@ define(['Backbone'], function(Backbone){
       }
 
       return data;
+    },
+
+    remove: function() {
+      Backbone.View.prototype.remove.call(this);
+      this._destroyed = true;
     }
-  })
+  });
 
   var CollectionView = ModelView.extend({
-     // childViewContainer
+     // childContainer
      // template
 
-    initialize(options) {
+    initialize: function(options) {
       ModelView.prototype.initialize.apply(this, arguments);
 
-      this.childViewContainer = this.childViewContainer || options && options.childViewContainer;
+      this.childContainer = this.childContainer || options && options.childContainer;
       // Keep track of rendered items
       this.children = {};
 
@@ -76,42 +79,42 @@ define(['Backbone'], function(Backbone){
     },
 
     // Render a model when is added to the collection
-    modelAdded(model) {
+    modelAdded: function(model) {
       var view = this.renderModel(model);
-      this.$el.append(view.$el);
+      (this.$childContainer || this.$el).append(view.$el);
     },
 
     // Close view of model when is removed from the collection
-    modelRemoved(model) {
+    modelRemoved: function(model) {
       if (!model) return;
 
       var view = this.children[model.cid];
       this.closeChildView(view);
     },
 
-    render() {
+    render: function() {
       var renderedHtml;
       if (this.template) {
         renderedHtml = this._renderTemplate();
         this.attachElContent(renderedHtml);
-        this.$childViewContainer = this.$el.find(this.childViewContainer);
+        this.$childContainer = this.$el.find(this.childContainer);
       }
       // Clean up any previous elements rendered
       this.closeChildren();
 
       // Render a view for each model in the collection
-      var html = this.collection.map(model => {
+      var html = this.collection.map(function(model) {
         var view = this.renderModel(model);
         return view.$el;
-      });
+      }, this);
 
       // Put the rendered items in the DOM
       // this.$el.html(html);
-      (this.$childViewContainer || this.$el).html(html);
+      (this.$childContainer || this.$el).html(html);
       return this;
     },
 
-    renderModel(model) {
+    renderModel: function(model) {
       // Create a new view instance, modelView should be
       // redefined as a subclass of Backbone.View
       var view = new this.modelView({model: model});
@@ -122,7 +125,7 @@ define(['Backbone'], function(Backbone){
       // Re-trigger all events in the children views, so that
       // you can listen events of the children views from the
       // collection view
-      this.listenTo(view, 'all', eventName => {
+      this.listenTo(view, 'all', function(eventName) {
         this.trigger('item:' + eventName, view, model);
       });
 
@@ -132,19 +135,19 @@ define(['Backbone'], function(Backbone){
 
     // Called to close the collection view, should close
     // itself and all the live childrens
-    remove() {
+    remove: function() {
       Backbone.View.prototype.remove.call(this);
       this.closeChildren();
     },
 
     // Close all the live childrens
-    closeChildren() {
+    closeChildren: function() {
       var children = this.children || {};
-      _.each(children, child => this.closeChildView(child));
+      _.each(children, function(child) { this.closeChildView(child);}, this );
     },
 
     // Close a single children at time
-    closeChildView(view) {
+    closeChildView: function(view) {
       // Ignore if view is not valid
       if (!view) return;
 
@@ -162,57 +165,57 @@ define(['Backbone'], function(Backbone){
         this.children[view.model.cid] = undefined;
       }
     }
-  })
+  });
 
-  class Region {
-    constructor(options) {
+  var Region = function(options)  {
       this.el = options.el;
-    }
+    };
 
+    _.extend(Region.prototype, {
+      show: function(view) {
+        this.closeView(this.currentView);
+        this.currentView = view;
+        this.openView(view);
+      },
+
+      closeView: function(view) {
+        // Only remove the view when the remove function
+        // is available
+        if (view && view.remove) {
+          view.remove();
+        }
+      },
+
+      openView: function(view) {
+        // Be sure that this.$el exists
+        this.ensureEl();
+
+        // Render the view on the this.$el element
+        view.render();
+        this.$el.html(view.el);
+
+        // Callback when the view is in the DOM
+        if (view.onShow) {
+          view.onShow();
+        }
+      },
+
+      // Create the this.$el attribute if do not exists
+      ensureEl: function() {
+        if (this.$el) return;
+        this.$el = $(this.el);
+      },
+
+      // Close the Region and any view on it
+      remove: function() {
+        this.closeView(this.currentView);
+      }
+
+    });
     // Closes any active view and render a new one
-    show(view) {
-      this.closeView(this.currentView);
-      this.currentView = view;
-      this.openView(view);
-    }
-
-    closeView(view) {
-      // Only remove the view when the remove function
-      // is available
-      if (view && view.remove) {
-        view.remove();
-      }
-    }
-
-    openView(view) {
-      // Be sure that this.$el exists
-      this.ensureEl();
-
-      // Render the view on the this.$el element
-      view.render();
-      this.$el.html(view.el);
-
-      // Callback when the view is in the DOM
-      if (view.onShow) {
-        view.onShow();
-      }
-    }
-
-    // Create the this.$el attribute if do not exists
-    ensureEl() {
-      if (this.$el) return;
-      this.$el = $(this.el);
-    }
-
-    // Close the Region and any view on it
-    remove() {
-      this.closeView(this.currentView);
-    }
-  }
-
   var Layout = ModelView.extend({
 
-    render() {
+    render: function() {
       // Clean up any rendered DOM
       this.closeRegions();
 
@@ -224,7 +227,7 @@ define(['Backbone'], function(Backbone){
       return result;
     },
 
-    configureRegions() {
+    configureRegions: function() {
       var regionDefinitions = this.regions || {};
 
       if (!this._regions) {
@@ -233,34 +236,35 @@ define(['Backbone'], function(Backbone){
 
       // Create the configurated regions and save a reference
       // in the this._regions attribute
-      _.each(regionDefinitions, (selector, name) => {
-        let $el = this.$(selector);
+      _.each(regionDefinitions, function(selector, name) {
+        var $el = this.$(selector);
         this[name] = this._regions[name] = new Region({el: $el});
-      });
+      }, this);
     },
 
     // Get a Region instance for a named region
-    getRegion(regionName) {
+    getRegion: function(regionName) {
       var regions = this._regions || {};
       return regions[regionName];
     },
 
     // Close the layout and all the regions on it
-    remove(options) {
+    remove: function(options) {
       ModelView.prototype.remove.call(this, options);
       this.closeRegions();
+      this.trigger('remove');
     },
 
-    closeRegions() {
+    closeRegions: function() {
       var regions = this._regions || {};
 
       // Close each active region
-      _.each(regions, region => {
+      _.each(regions, function (region) {
         if (region && region.remove) region.remove();
       });
     }
-  })
+  });
 
- return {ModelView, CollectionView, Region, Layout};
+ return {ModelView:ModelView, CollectionView:CollectionView, Region:Region, Layout:Layout};
 
 });

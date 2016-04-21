@@ -2,17 +2,12 @@ define([
 'Backbone', 
 './router',
 './views/MainView', 
-'./views/RoomsListView', 
-'./views/MessagesView', 
-'./views/UsersView',
-'./collections/Rooms'
-], function(Backbone, Router, MainView, RoomsListView, MessagesView, UsersView, RoomsCollection) {	
+'./collections/Rooms',
+'backbone-fetch-cache'
+], function(Backbone, Router, MainView, RoomsCollection) {	
 	var ChatApp = function(options) {
 		this.region = options.region;
 		this.initialize();
-
-
-		// this.vent = _.extend({}, Backbone.Events);
 		this.router = new Router({app: this});
 		Backbone.history.loadUrl();
 	};
@@ -20,35 +15,42 @@ define([
 	_.extend(ChatApp.prototype, Backbone.Events, {
 		initialize: function() {
 			this.roomsList = new RoomsCollection();
+			this.listenTo(this.roomsList, 'selected', this.selectRoom, this);
+			this.roomsList.fetch();
+			window.roomsList  = this.roomsList;
 		},
 		
+		createLayout: function() {
+			if (!this.mainView) {
+				this.mainView = new MainView({roomsList: this.roomsList});
+				this.listenToOnce(this.mainView, 'remove', this.close, this);
+				this.region.show(this.mainView); 
+			}
+		},
+
 		showRooms: function(roomId) {
 			var self = this;
+			this.createLayout();
 
-			this.roomsList.fetch({success: function(roomsList) {
-				var room;
+			this.roomsList.fetch({cache: true, success: function(roomsList) {
+				var room, mainView;
 
 				if (!roomId) {
-					room = roomsList.at(0);
+					room = roomsList.getSelected() || roomsList.at(0);
 					roomId = room.get('id');
 					Backbone.history.navigate(room.url(), {replace: true});
 				} else {
 					room = roomsList.get(roomId) || roomsList.at(0);
 				}
-
-	    	    var roomsListView =  new RoomsListView({collection: roomsList});
-				var mainView = new MainView();
-				var messagesView = new MessagesView({collection: room.get('messages')}); 
-				var usersView = new UsersView({collection: room.get('users')});
-
-				self.region.show(mainView);
-				mainView.getRegion('rooms').show(roomsListView);
-		
-				mainView.getRegion('messages').show(messagesView);
-				mainView.getRegion('users').show(usersView);
 				roomsList.setSelected(roomId);
-
 			}});
+			// window.roomsList = this.roomsList; 
+		},
+
+		selectRoom: function(id) {
+			// this.mainView = this.mainView || new MainView({roomsList: this.roomsList});
+			// this.region.show(mainView);
+			Backbone.history.navigate('#chat/'+id);
 		},
 
 		start: function() {
@@ -56,7 +58,8 @@ define([
 		},
 
 		close: function() {
-
+			// console.log('Chat Module closed');
+			this.mainView = null;
 		}
 	});
 

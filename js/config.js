@@ -15,24 +15,17 @@ require.config({
 			exports: 'Backbone'
 		},
 
-		// 'Layoutmanager': {
-		// 	deps: ['Backbone']
-		// },
-
 		"bootstrap" : {
 			"deps" :['jQuery']
 		}
 
-		// 'ApplicationRouter': {
-		// 	deps: ['jQuery', 'Underscore', 'Backbone']
-		// }
 	},
 
 	paths: {
 		jQuery: './../components/jquery/jquery',
 		Underscore: './../components/underscore/underscore',
 		Backbone: './../components/backbone/backbone',
-//		Layoutmanager: './core/backbone.layoutmanager',
+		'backbone-fetch-cache': './../components/backbone-fetch-cache/backbone.fetch-cache',
 		bootstrap: "./../components/bootstrap/dist/js/bootstrap",
 		'socket.io': "./../components/socket.io-client/socket.io",
 		text: "./../components/text/text",

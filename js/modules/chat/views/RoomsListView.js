@@ -10,7 +10,7 @@ define(['Backbone',
 			
 			modelView: RoomsItemView, 
 
-			childViewContainer: '.teams-list'
+			childContainer: '.teams-list'
 
 		});
 

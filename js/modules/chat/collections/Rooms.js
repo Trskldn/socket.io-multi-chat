@@ -6,9 +6,9 @@ define(['Backbone', './../models/Room'], function(Backbone, RoomModel) {
 		currentSelected: null,
 
 		parse: function(data) {
-			_.each(data.data,function(room) {
-				room.messages = new Backbone.Collection(room.messages)
-				room.users = new Backbone.Collection(room.users)
+			_.each(data.data, function(room) {
+				room.messages = new Backbone.Collection(room.messages);
+				room.users = new Backbone.Collection(room.users);
 			});
 			return data.data;
 		},
@@ -22,6 +22,11 @@ define(['Backbone', './../models/Room'], function(Backbone, RoomModel) {
 			}
 			model.select();
 			this.currentSelected = id;
+			this.trigger('selected', id);
+		},
+
+		getSelected: function() {
+			return this.get(this.currentSelected);
 		}
 	});
 
