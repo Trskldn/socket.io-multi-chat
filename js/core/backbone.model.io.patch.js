@@ -1,4 +1,4 @@
-require(['Backbone'], function (Backbone) {
+require(['backbone'], function (Backbone) {
   var oldremove = Backbone.View.prototype.remove;
 
   var widgetsId = [];

@@ -1,5 +1,5 @@
 define([
-'Backbone', 
+'backbone', 
 'core/common', 
 'text!./../templates/NavHeaderView.html'],
 function (Backbone, Common, NavHeaderViewTmpl) {

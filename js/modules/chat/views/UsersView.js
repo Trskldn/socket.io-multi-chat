@@ -1,5 +1,5 @@
 define([
-'Backbone', 
+'backbone', 
 "text!./../templates/UsersView.html", 
 './UsersItemView',
 'core/common'], 

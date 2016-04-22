@@ -1,5 +1,5 @@
 define([
-'Backbone',
+'backbone',
 './RoomsListView',
 './MessagesView', 
 './UsersView',

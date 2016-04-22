@@ -1,5 +1,5 @@
 define([
-'Backbone',
+'backbone',
 'core/view.registry',
 'router',
 'socket.io',

@@ -1,23 +1,26 @@
-define(['Backbone', './../models/Room'], function(Backbone, RoomModel) {
+define([
+'backbone', 
+'./../models/Room',
+'./Messages',
+'./Users'
+], 
+
+function(Backbone, RoomModel, Messages, Users) {
 
 	var Rooms = Backbone.Collection.extend({
-		url: "/contacts",
+		url: "/rooms",
 		model: RoomModel,
 		currentSelected: null,
 
 		parse: function(data) {
-			_.each(data.data, function(room) {
-				room.messages = new Backbone.Collection(room.messages);
-				room.users = new Backbone.Collection(room.users);
-			});
 			return data.data;
 		},
 
 		setSelected: function(id) {
-			var model = this.get(id),
+			var model = this.get(id),	
 				oldSelect;
 			
-			if (this.currentSelected && (oldSelect = this.get(this.currentSelected))) {
+			if (this.currentSelected && (oldSelect = this.get(this.currentSelected))) {	
 				oldSelect.unselect();
 			}
 			model.select();

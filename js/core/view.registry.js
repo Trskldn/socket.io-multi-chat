@@ -1,4 +1,4 @@
-define(['Backbone'], function(Backbone) {
+define(['backbone'], function(Backbone) {
 	var _registry = {};
 
 	var OriginalView = Backbone.View; 

@@ -1,5 +1,5 @@
 define([
-'Backbone', 
+'backbone', 
 "text!./../templates/MessagesView.html", 
 './MessagesItemView',
 'core/common'], 

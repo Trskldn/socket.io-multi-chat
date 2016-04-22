@@ -1,5 +1,5 @@
 define([
-'Backbone', 
+'backbone', 
 './router',
 './views/MainView', 
 './collections/Rooms',
@@ -16,9 +16,11 @@ define([
 		initialize: function() {
 			this.roomsList = new RoomsCollection();
 			this.listenTo(this.roomsList, 'selected', this.selectRoom, this);
-			this.roomsList.fetch();
+			// this.roomsList.fetch().done(function(roomsList) {
+			// 	roomsList.setSelected(roomId);
+			// });
 			window.roomsList  = this.roomsList;
-		},
+		},	
 		
 		createLayout: function() {
 			if (!this.mainView) {
@@ -32,7 +34,18 @@ define([
 			var self = this;
 			this.createLayout();
 
-			this.roomsList.fetch({cache: true, success: function(roomsList) {
+				var room, mainView;
+
+				// if (!roomId) {
+				// 	room = roomsList.getSelected() || roomsList.at(0);
+				// 	roomId = room.get('id');
+				// 	Backbone.history.navigate(room.url(), {replace: true});
+				// } else {
+				// 	room = roomsList.get(roomId) || roomsList.at(0);
+				// }
+				// room && roomsList.setSelected(roomId);
+			
+			this.roomsList.fetch({/*cache: true,*/ success: function(roomsList) {
 				var room, mainView;
 
 				if (!roomId) {
@@ -44,12 +57,9 @@ define([
 				}
 				roomsList.setSelected(roomId);
 			}});
-			// window.roomsList = this.roomsList; 
 		},
 
 		selectRoom: function(id) {
-			// this.mainView = this.mainView || new MainView({roomsList: this.roomsList});
-			// this.region.show(mainView);
 			Backbone.history.navigate('#chat/'+id);
 		},
 

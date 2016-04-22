@@ -1,4 +1,4 @@
-define(['Backbone'], function(Backbone){
+define(['backbone'], function(Backbone){
 
   var ModelView = Backbone.View.extend({
     attachElContent: function(html) {

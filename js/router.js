@@ -1,5 +1,5 @@
 define([
-'Backbone',
+'backbone',
 'shared/views/NavHeaderView'
 // 'modules/chat/router'
 ], function( Backbone, NavHeaderView ) {

@@ -3,7 +3,7 @@
  *
  * Overrides the default transport for Backbone syncing to use websockets via socket.io.
  */
- require(['Backbone', 'socket.io'], function (Backbone, io) {
+ require(['backbone', 'socket.io'], function (Backbone, io) {
    var urlError = function(){
        throw new Error('A "url" property or function must be specified.');
    },

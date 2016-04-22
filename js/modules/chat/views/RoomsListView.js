@@ -1,4 +1,4 @@
-define(['Backbone', 
+define(['backbone', 
 	"text!./../templates/RoomsListView.html",
 	"./RoomsItemView",
 	"core/common"

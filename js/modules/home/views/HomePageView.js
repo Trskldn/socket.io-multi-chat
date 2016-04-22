@@ -1,5 +1,5 @@
 define([
-'Backbone', 
+'backbone', 
 'text!./../templates/HomePageView.html', 
 'core/common'
 ], function(Backbone, HomePageTmpl, Common) {

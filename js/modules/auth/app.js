@@ -1,4 +1,4 @@
-define(['Backbone', './router'], function(Backbone, Router) {	
+define(['backbone', './router'], function(Backbone, Router) {	
 	var AuthApp = function(options) {
 		this.region = options.region;
 		this.router = new Router({app: this});

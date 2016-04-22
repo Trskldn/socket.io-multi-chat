@@ -1,4 +1,4 @@
-define(['Backbone', 
+define(['backbone', 
 	"text!./../templates/UsersItemView.html",
 	"core/common"
 	],	function(Backbone, UsersItemTmpl, Common) {
