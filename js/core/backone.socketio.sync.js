@@ -14,14 +14,14 @@
    /**
     * Preserve the standard, jquery ajax based persistance method as ajaxSync.
     */
-   Backbone.ajaxSync = function(method, model, options){
-       return ajaxSync.call(this, method, model, options);
-   };
+   // Backbone.ajaxSync = function(method, model, options){
+   //     return ajaxSync.call(this, method, model, options);
+   // };
 
    /**
     * Replace the standard sync function with our new, websocket/socket.io based solution.
     */
-   Backbone.sync = function(method, model, options){
+   Backbone.IoSync = function(method, model, options){
        var opts = _.extend({}, options),
            defer = $.Deferred(),
            promise = defer.promise(),
@@ -71,7 +71,7 @@
     */
    Backbone.Model.prototype.namespace = function(url){
        url = url || this.url();
-       return url.replace(new RegExp('^\/+|\/+$', 'g'), '').replace('/', ':') + ":";
+       return url.replace(new RegExp('^\/+|\/+$', 'g'), '').replace(/\//g, ':') + ":";
    };
 
    /**

@@ -19,6 +19,10 @@
     "text": "requirejs/text#^2.0.14",
     "backbone.collectionView": "^1.0.6",
     "socket.io-client": "^1.4.5",
-    "backbone-fetch-cache": "^2.0.1"
+    "backbone-fetch-cache": "^2.0.1",
+    "grapnel": "^0.6.3",
+    "page": "visionmedia/page.js#^1.7.1",
+    "data.io": "^0.3.1",
+    "backbone-cappedcollection": "^0.1.1"
   }
 }

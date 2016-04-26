@@ -26,7 +26,25 @@ io.sockets.on('connect', function (socket) {
 
     socket.on('*', function (data) {
       console.log('* ', data);
-    }) ;    
+    }); 
+
+
+    var id = 0;
+    socket.on('message:read', function () {
+      console.log('message:read ');
+      socket.emit('message:read', rooms);
+    });
+ 
+    socket.on('chat:1:message:create', function (data) {
+      console.log('chat:1:message:create ');
+      data.id = Math.floor(Math.random()*1000);
+      data.success = true;
+      io.emit('chat:1:message:add', data);
+    });
+
+    setInterval(function() {
+      socket.emit('chat:1:message:add', { id: id++, 'text':'test'+id, 'userId': 1, user:'username', 'threadId':1, timestamp: Date.now() });
+    }, 3000);
 });
 
 server.listen(port, function(){

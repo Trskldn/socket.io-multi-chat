@@ -7,7 +7,7 @@ function(Backbone, UsersViewTmpl, UsersItemView, Common) {
 	var UsersView =  Common.CollectionView.extend({
 		template: UsersViewTmpl,
 		modelView: UsersItemView,
-		childViewContainer: '.panel-body',
+		childContainer: '.panel-body'
 	});
 
 	return UsersView;

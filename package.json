@@ -4,7 +4,7 @@
   "description": "backbone-multi-chat-client",
   "private": false,
   "scripts":{
-    "start" : "nodemon server.js"
+    "start" : "nodemon --ignore './js/*.*' ./server.js"
   },
   "dependencies": {
   },

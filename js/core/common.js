@@ -14,7 +14,7 @@ define(['backbone'], function(Backbone){
       // template, if not assume that is a CSS selector where
       // the template is defined and is compatible with
       // underscore templates
-      if (_.isFunction(this.template)) {
+      if (_.isFunction( this.template)) {
         renderedHtml = this.template(data);
       } else if (_.isString(this.template)) {
         var compiledTemplate = this.compileTemplate();
@@ -67,7 +67,7 @@ define(['backbone'], function(Backbone){
     initialize: function(options) {
       ModelView.prototype.initialize.apply(this, arguments);
 
-      this.childContainer = this.childContainer || options && options.childContainer;
+      this.childContainer = options && options.childContainer || this.childContainer;
       // Keep track of rendered items
       this.children = {};
 
@@ -97,7 +97,9 @@ define(['backbone'], function(Backbone){
       if (this.template) {
         renderedHtml = this._renderTemplate();
         this.attachElContent(renderedHtml);
-        this.$childContainer = this.$el.find(this.childContainer);
+        if (this.childContainer) {
+          this.$childContainer = this.$el.find(this.childContainer);
+        }
       }
       // Clean up any previous elements rendered
       this.closeChildren();

@@ -1,3 +1,7 @@
 body {
 	background-color: #ededed;
 }
+.messages .panel-body{
+	height: 400px;
+	overflow-y: scroll;
+}

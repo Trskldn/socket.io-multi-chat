@@ -1,11 +1,18 @@
-define(['backbone', './../models/Message'], function(Backbone, MessageModel) {
+define([
+'backbone', 
+'./../models/Message',
+'core/linkSocketMixin',
+'core/CappedCollection'
+], function(Backbone, MessageModel, linkSocketMixin, CappedCollection) {
 
-	var Messages = Backbone.Collection.extend({
+	var Messages = CappedCollection.extend({
 		model: MessageModel,
-		url: function() {
-			return (this.parent && this.parent.url() || '') + '/messages';
-		}
+		
+		sync: Backbone.IoSync,
+
+		cap: 20
 	});
 
+	_.extend(Messages.prototype, linkSocketMixin);	
 	return Messages;
 });

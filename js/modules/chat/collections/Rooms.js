@@ -11,7 +11,24 @@ function(Backbone, RoomModel, Messages, Users) {
 		url: "/rooms",
 		model: RoomModel,
 		currentSelected: null,
+		sync: Backbone.IoSync,
+		twoWaySync:true,
+		socket: app.socket,
 
+		initialize: function() {
+			Backbone.Collection.prototype.initialize.apply(this, arguments);
+			this.socket.on('create', _.bind(this._onCreate, this));
+			this.socket.on('delete', _.bind(this._onDelete, this));
+		},
+
+		_onCreate: function() {
+
+		},
+
+		_onDelete: function() {
+
+		},
+		
 		parse: function(data) {
 			return data.data;
 		},

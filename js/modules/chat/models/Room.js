@@ -13,9 +13,24 @@ define([
 		},
 
 		initialize: function(attr, options) {
-			console.log(arguments);
-			this.set('messages', new Messages(attr.messages, {url: 'rooms/'+this.id+'/messages' }));
-			this.set('users', new Users(attr.users, {url: 'rooms/'+this.id+'/users' }));
+			this.messages = new Messages(attr.messages);
+			this.messages.url = this.url()+'/message';
+			this.messages.link('add', 'remove');
+	
+			this.users = new Users(attr.users);
+			this.users.url = this.url()+'/user';
+			this.users.link('add', 'remove');
+
+			// this.listenTo(app.vent, this.messages.url, this.addMessage, this);
+			// this.listenTo(app.vent, this.users.url, this.addUser, this);
+		},
+
+		addMessage: function() {
+
+		},
+
+		addUser: function() {
+
 		},
 
 		unselect: function() {

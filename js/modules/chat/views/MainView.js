@@ -22,17 +22,20 @@ define([
         		this.options = options;
         		Common.Layout.prototype.initialize.apply(this, arguments);	
 	    	    this.roomsListView =  new RoomsListView({collection: this.options.roomsList});
-				// this.messagesView = new MessagesView({collection: options.roomsList.getCurrentRoom().get('messages')}); 
-				// this.usersView = new UsersView({collection: options.roomsList.getCurrentRoom().get('users')});
         	},
 
         	render: function() {
         		Common.Layout.prototype.render.apply(this, arguments);	
  				this.getRegion('rooms').show(this.roomsListView);
-				// this.getRegion('messages').show(this.messagesView);
-				// this.getRegion('users').show(this.usersView);
         	},
 
+        	showMessageAndUsers: function() {
+				this.messagesView = new MessagesView({collection: this.options.roomsList.getSelected().messages}); 
+				this.usersView = new UsersView({collection: this.options.roomsList.getSelected().users});
+				this.getRegion('messages').show(this.messagesView);
+				this.getRegion('users').show(this.usersView);
+        	},
+   
         	showMessagesForRoom: function(id) {
         		
         	}
