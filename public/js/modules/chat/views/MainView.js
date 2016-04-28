@@ -20,8 +20,10 @@ define([
 
         	initialize: function(options) {
         		this.options = options;
+        		_.defaults(this, options);
         		Common.Layout.prototype.initialize.apply(this, arguments);	
-	    	    this.roomsListView =  new RoomsListView({collection: this.options.roomsList});
+	    	    this.roomsListView =  new RoomsListView({collection: this.roomsList});
+	    	    this.listenTo(app.vent, 'message:send', this._onMessageSendCLick, this);
         	},
 
         	render: function() {
@@ -29,9 +31,21 @@ define([
  				this.getRegion('rooms').show(this.roomsListView);
         	},
 
-        	showMessageAndUsers: function() {
-				this.messagesView = new MessagesView({collection: this.options.roomsList.getSelected().messages}); 
-				this.usersView = new UsersView({collection: this.options.roomsList.getSelected().users});
+        	_onMessageSendCLick: function(text) {
+        		this.sendMessageToRoom(text);
+        	},
+
+        	sendMessageToRoom: function(text, id/*?*/) {
+				var curRoom = this.roomsList.get(id || this.roomsList.currentSelected),
+					messages = curRoom.messages,
+					message = {text: text, threadId: curRoom.get('id') };
+
+				messages.create(message, { wait: true});
+        	},
+
+        	showMessageAndUsersView: function() {
+				this.messagesView = new MessagesView({collection: this.roomsList.getSelected().messages}); 
+				this.usersView = new UsersView({collection: this.roomsList.getSelected().users});
 				this.getRegion('messages').show(this.messagesView);
 				this.getRegion('users').show(this.usersView);
         	},

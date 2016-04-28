@@ -16,10 +16,13 @@ function(Backbone, MessagesViewTmpl, MessagesItemView, Common) {
 		},
 
 		_onSendClick: function(e) {
-			console.log(e, this.collection); 
+			var $input = this.$el.find('input'),
+				text = $input.val();
+			
 			e && e.preventDefault();
-
-			var newmess = this.collection.create({text: 'new message', threadId: 1 }, { wait: true} );
+			if (text == '') return;
+			$input.val('');
+			app.vent.trigger('message:send', text);
 		}
 	});
 	return MessagesView;

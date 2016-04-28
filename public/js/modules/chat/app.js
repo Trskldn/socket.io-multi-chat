@@ -40,7 +40,7 @@ define([
 			}
 			if(room)  this.roomsList.setSelected(roomId);
 
-			this.mainView.showMessageAndUsers();
+			this.mainView.showMessageAndUsersView();
 		},
 
 		// selectRoom: function(id) {

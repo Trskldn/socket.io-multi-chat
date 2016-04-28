@@ -1,17 +1,10 @@
-var express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    io = require('socket.io')(server),
-    port = 8080;
+module.exports = function(app) {
 
-
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(express.static(__dirname));
-
-
+var rooms = {};
+var users = {};
+var messageId = 0;
+var io = app.get('io');
+  
 io.sockets.on('connect', function (socket) {
     socket.on('me:read', function (data) {
       console.log('me:read ', data);
@@ -29,27 +22,26 @@ io.sockets.on('connect', function (socket) {
     }); 
 
 
-    var id = 0;
     socket.on('message:read', function () {
       console.log('message:read ');
       socket.emit('message:read', rooms);
     });
  
     socket.on('chat:1:message:create', function (data) {
-      console.log('chat:1:message:create ');
-      data.id = Math.floor(Math.random()*1000);
+      console.log('chat:1:message:create ',data);
+      data.id = messageId++;
       data.success = true;
+      data.userId = socket.id;
+      console.log('chat:1:message:create ',data);
+
       io.emit('chat:1:message:add', data);
     });
 
     setInterval(function() {
-      socket.emit('chat:1:message:add', { id: id++, 'text':'test'+id, 'userId': 1, user:'username', 'threadId':1, timestamp: Date.now() });
+      socket.emit('chat:1:message:add', { id: messageId++, 'text':'test'+messageId, 'userId': 1, user:'username', 'threadId':1, timestamp: Date.now() });
     }, 3000);
 });
 
-server.listen(port, function(){
-  console.log('Express server listening on port ' + port);
-});
   
 
 var rooms = [
@@ -90,3 +82,5 @@ messages:[
 },
 {name: 'name2',id: 2},
 {name: 'name3',id: 3}];
+
+};
