@@ -1,7 +1,18 @@
 body {
-	background-color: #ededed;
+	background-color: mediumseagreen;
 }
+/*
+steelblue
+lightskyblue
+darkslategray
+mediumseagreen
+*/
 .messages .panel-body{
 	height: 400px;
 	overflow-y: scroll;
+}
+
+.signin {
+max-width: 300px;
+margin: 0px auto;	
 }

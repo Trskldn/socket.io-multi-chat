@@ -6,12 +6,13 @@ define([
 'core/common',
 'shared/models/User',
 'core/MessageStore',
+'core/Session',
 // 'models/user',
 // 'collections/rooms',
 'core/backone.socketio.sync'
 //'common/backbone.model.io.patch',
 //	'Layoutmanager'
-], function( Backbone, registry, Route, io, Common, User, MessageStore) {
+], function( Backbone, registry, Route, io, Common, User, MessageStore, session) {
 
 	var App = function () {
 		this._started = false;
@@ -27,6 +28,7 @@ define([
 			this.vent = _.extend({}, Backbone.Events);
 			this.user = new User();
 
+			window.ses = session;
 			// window.messageStore = this.messageStore = new MessageStore(this.socket);
 
 			// this.user = new UserModel({url: "/me"});

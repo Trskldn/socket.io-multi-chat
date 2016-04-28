@@ -1,9 +1,22 @@
 <div class="container">
 	<div class="jumbotron">
-		<form >
 			<h2>
 				Login view
-			</h2>  
-		</form>
+			</h2> 
+			<form class="form-horizontal signin">
+				<div class="form-group">
+					<label for="username" class="col-md-4 control-label">Username</label>
+					<div class="col-md-8">
+						<input type="text" name="username" placeholder="username" class="form-control input-md" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-md-4 control-label">Password</label>
+					<div class="col-md-8">
+						<input type="text" name="password" placeholder="password" class="form-control input-md" >
+					</div>
+				</div>
+				<button class="btn btn-md btn-primary btn-block btn-signin" type="submit">Sign in</button>
+			</form>
 	</div>
 </div>
