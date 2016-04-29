@@ -5,7 +5,8 @@
   "main": "app.js",
   "private": false,
   "scripts": {
-    "start": "nodemon --ignore public/* --ignore sessions/ app.js"
+    "start": "node app.js",
+    "server": "nodemon --ignore public/* --ignore sessions/ app.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.1",
