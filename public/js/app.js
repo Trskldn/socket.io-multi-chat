@@ -4,7 +4,7 @@ define([
 'socket.io',
 'core/common',
 'core/MessageStore',
-'core/Session',
+'core/session',
 'core/backone.socketio.sync'
 ], function( Backbone, Route, io, Common, MessageStore, session) {
 
