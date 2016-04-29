@@ -6,7 +6,8 @@
   "private": false,
   "scripts": {
     "start": "node app.js",
-    "server": "nodemon --ignore public/* --ignore sessions/ app.js"
+    "dev": "nodemon --ignore public/* --ignore sessions/ app.js",
+    "postinstall": "bower install"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
