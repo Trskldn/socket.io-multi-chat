@@ -17,7 +17,7 @@ define([
 		initialize: function () {
 			this.mainRegion = new Common.Region({el: "#main"});
 			this.navRegion = new Common.Region({el: "#nav"});
-			this.socket = io('http://localhost:' + appConfig.socketioPort);
+			this.socket = io('http://127.0.0.1:' + appConfig.socketioPort);
 			this.vent = _.extend({}, Backbone.Events);
 			this.session = session;
 			this.listenTo(this.session, 'signin signout', this._onAuthChange, this);
