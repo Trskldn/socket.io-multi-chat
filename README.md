@@ -6,4 +6,4 @@
 
 http://localhost:8080
 
-demo: https://limitless-tor-21856.herokuapp.com
+demo: https://backbone-socketio-chat.herokuapp.com/
