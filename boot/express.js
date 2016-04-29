@@ -7,6 +7,7 @@ var express = require('express'),
     sessionFileStore = require('session-file-store')(session),   
     sessionOptions = config.get('session'),
     // sharedsession = require("express-socket.io-session"),
+    path = require('path'),
     log4js = require('log4js'),
     passport = require('passport'),
     sessionMiddleware;
@@ -25,7 +26,7 @@ module.exports = function(app) {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 	app.use(sessionMiddleware);
-	app.use(express.static(__dirname + '/public')); 
+	app.use(express.static(path.join(__dirname, '../public'))); 
 
 	app.use(passport.initialize()); 
 	app.use(passport.session()); 
