@@ -12,7 +12,7 @@ var express = require('express'),
     sessionMiddleware;
 
 module.exports = function(app) {
-	app.set('port', config.get('port') || 3000);
+	app.set('port', process.env.PORT || config.get('port') || 3000);
 	app.set('view', './../views');
 	app.set('view engine', 'jade');
 	
