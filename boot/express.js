@@ -25,7 +25,7 @@ module.exports = function(app) {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(cookieParser());
 	app.use(sessionMiddleware);
-	app.use(express.static('public')); 
+	app.use(express.static(__dirname + '/public')); 
 
 	app.use(passport.initialize()); 
 	app.use(passport.session()); 
