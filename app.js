@@ -12,6 +12,7 @@ nconf.argv()
  .file({ file: './config.json' });
 
 app.set('io', io);
+
 require('./boot/index')(app);
 require('./routes/index')(app);
 

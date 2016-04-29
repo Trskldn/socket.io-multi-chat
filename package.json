@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bower": "^1.7.9",
     "cookie-parser": "^1.4.1",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "jade": "^1.11.0",
@@ -21,8 +23,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "session-file-store": "^0.2.0",
-    "socket.io": "^1.4.5",
-    "bower": "^1.7.9"
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {}
 }

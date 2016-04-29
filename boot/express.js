@@ -9,13 +9,14 @@ var express = require('express'),
     // sharedsession = require("express-socket.io-session"),
     path = require('path'),
     log4js = require('log4js'),
+    log = log4js.getLogger(),
     passport = require('passport'),
     sessionMiddleware;
 
 module.exports = function(app) {
 	app.set('port', process.env.PORT || config.get('port') || 3000);
-	app.set('view', './../views');
-	app.set('view engine', 'jade');
+	app.set('views', path.join(__dirname, '../views'));
+	app.set('view engine', 'ejs');
 	
 	sessionOptions.store = new sessionFileStore();
 	sessionMiddleware = session(sessionOptions); 
