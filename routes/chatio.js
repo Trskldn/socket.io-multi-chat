@@ -6,20 +6,35 @@ var messageId = 0;
 var io = app.get('io');
   
 io.sockets.on('connect', function (socket) {
+  
+    // log.info(socket.handshake);
+    // log.info(socket.request);
+    console.log('SOCKET CONNECTTED');
+    try{
+      console.log(socket.request.session.passport.user);
+    } catch(e) {
+      console.log('!!! no user data');
+    }
+
+    socket.on('*', function (data) {
+      // console.log('* ', data); 
+      console.log('SOCKET',data, JSON.stringify(socket.request.session));
+      // console.log('sessionID', socket.request.sessionID);
+      // console.log('passport.user', socket.request.session.passport.user);
+    }); 
+
     socket.on('me:read', function (data) {
       console.log('me:read ', data);
       socket.emit('me:read', {name:'new name', success: true});
     });
 
- 
-    socket.on('rooms:read', function () {
+  
+
+     socket.on('rooms:read', function () {
       console.log('rooms:read ');
       socket.emit('rooms:read', {success: true, data: rooms});
     });
 
-    socket.on('*', function (data) {
-      console.log('* ', data);
-    }); 
 
 
     socket.on('message:read', function () {
@@ -28,18 +43,23 @@ io.sockets.on('connect', function (socket) {
     });
  
     socket.on('chat:1:message:create', function (data) {
-      console.log('chat:1:message:create ',data);
+      // console.log('chat:1:message:create ',data);
       data.id = messageId++;
       data.success = true;
       data.userId = socket.id;
-      console.log('chat:1:message:create ',data);
+      // console.log('chat:1:message:create ',data);
 
       io.emit('chat:1:message:add', data);
     });
 
-    setInterval(function() {
+    var spamMsginterval = setInterval(function() {
       socket.emit('chat:1:message:add', { id: messageId++, 'text':'test'+messageId, 'userId': 1, user:'username', 'threadId':1, timestamp: Date.now() });
     }, 3000);
+
+    socket.on('disconnect', function() {
+      console.log('SOCKET <DISCONNECTED></DISCONNECTED>');
+      clearInterval(spamMsginterval);
+    });
 });
 
   

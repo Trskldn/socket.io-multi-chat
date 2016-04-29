@@ -4,3 +4,5 @@
 node_modules
 components
 *.log
+sessions
+log

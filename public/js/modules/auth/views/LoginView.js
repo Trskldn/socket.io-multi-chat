@@ -12,7 +12,7 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 			var password = this.$el.find('input[name=password]').val();
 			e && e.preventDefault();
 			console.log('_onSubmit <click></click>', username, password);
-					
+			ses.save();		
 		}
 	});
 

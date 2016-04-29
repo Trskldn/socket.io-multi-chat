@@ -1,23 +1,16 @@
 define([
 'backbone',
-'core/view.registry',
 'router',
 'socket.io',
 'core/common',
-'shared/models/User',
 'core/MessageStore',
 'core/Session',
-// 'models/user',
-// 'collections/rooms',
 'core/backone.socketio.sync'
-//'common/backbone.model.io.patch',
-//	'Layoutmanager'
-], function( Backbone, registry, Route, io, Common, User, MessageStore, session) {
+], function( Backbone, Route, io, Common, MessageStore, session) {
 
 	var App = function () {
 		this._started = false;
 		this.initialize();
-		window.reg  = registry;
 	};
 
 	_.extend(App.prototype, Backbone.Events, {
@@ -26,15 +19,8 @@ define([
 			this.navRegion = new Common.Region({el: "#nav"});
 			this.socket = io('http://localhost:8080');
 			this.vent = _.extend({}, Backbone.Events);
-			this.user = new User();
-
-			window.ses = session;
-			// window.messageStore = this.messageStore = new MessageStore(this.socket);
-
-			// this.user = new UserModel({url: "/me"});
-			// this.db = {
-			// 	rooms: new RoomsCollection()
-			// }
+			this.session = session;
+			this.listenTo(this.session, 'signin signout', this._onAuthChange, this);
 		},
 	
 		start: function() {
@@ -43,6 +29,13 @@ define([
 			Backbone.history.start({ pushState: false });
 			console.log('applications start');
 			this._started = true;
+		},
+
+		_onAuthChange: function() {
+			console.log('_onAuthChange');
+			app.socket.disconnect();
+			app.socket.connect();
+			// this.socket.reconnect();
 		}
 	});
 

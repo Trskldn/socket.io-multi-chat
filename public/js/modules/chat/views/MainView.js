@@ -23,7 +23,7 @@ define([
         		_.defaults(this, options);
         		Common.Layout.prototype.initialize.apply(this, arguments);	
 	    	    this.roomsListView =  new RoomsListView({collection: this.roomsList});
-	    	    this.listenTo(app.vent, 'message:send', this._onMessageSendCLick, this);
+	    	    this.listenTo(app.vent, 'message:send', this._onMessageSend, this);
         	},
 
         	render: function() {
@@ -31,7 +31,7 @@ define([
  				this.getRegion('rooms').show(this.roomsListView);
         	},
 
-        	_onMessageSendCLick: function(text) {
+        	_onMessageSend: function(text) {
         		this.sendMessageToRoom(text);
         	},
 
