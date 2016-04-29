@@ -9,6 +9,7 @@
     "server": "nodemon --ignore public/* --ignore sessions/ app.js"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
