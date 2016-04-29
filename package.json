@@ -2,6 +2,7 @@
   "name": "backbone-multi-chat-client",
   "version": "0.0.1",
   "description": "backbone-multi-chat-client",
+  "main": "app.js",
   "private": false,
   "scripts": {
     "start": "nodemon --ignore public/* --ignore sessions/ app.js"
