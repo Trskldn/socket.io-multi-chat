@@ -1,24 +1,24 @@
 define([
-    'backbone',
-    'core/fncombiner'
+	'backbone',
+	'core/fncombiner'
 ], 
 function(Backbone, fncombiner) {
- 	var firstRun = true;
+	// var firstRun = true;
 
-    Backbone.history.loadUrl = function(fragment) {
-    	this.trigger('routechange');
-      // If the root doesn't match, no routes can match either.
-      if (!this.matchRoot()) return false;
-      fragment = this.fragment = this.getFragment(fragment);
-      return _.reduce(this.handlers, function(memo, handler) {
-		        if (handler.route.test(fragment)) {
-		          handler.callback(fragment);
-		          return true;
-		        }
-      }, false);
-    };
+	Backbone.history.loadUrl = function(fragment) {
+		this.trigger('routechange');
+		// If the root doesn't match, no routes can match either.
+		if (!this.matchRoot()) return false;
+		fragment = this.fragment = this.getFragment(fragment);
+		return _.reduce(this.handlers, function(memo, handler) {
+				if (handler.route.test(fragment)) {
+					handler.callback(fragment);
+					return true;
+				}
+		}, false);
+	}
 
- 	var bindRoutesToContext = function(routes, cntx) {
+	var bindRoutesToContext = function(routes, cntx) {
 		return _.map(_.isArray(routes) ? routes : [routes], function(fnn) {  
 					if (_.isString(fnn)) {
 						if(!_.isFunction(cntx[fnn])) throw new Error(fnn+' dosnt found');
@@ -29,7 +29,7 @@ function(Backbone, fncombiner) {
 						return bindRoutesToContext(fnn, cntx);
 					}
 				});
- 	};
+	};
 
 
 	return Backbone.Router.extend({
@@ -62,41 +62,41 @@ function(Backbone, fncombiner) {
 			this.listenTo(Backbone.history, 'routechange', this._onRouteChange, this);
 			Backbone.Router.prototype.initialize.apply(this, arguments);
 		},
-    	
-    	createLayout: function() {
-    		console.log('createLayout');
-    		this.app.createLayout();
-    	},
+		
+		createLayout: function() {
+			console.log('createLayout');
+			this.app.createLayout();
+		},
 
-    	loadRooms: function() {
-    		console.log('loadRooms');
-    		if (!this.app.roomsList.length) return this.app.roomsList.fetch();
-    	},
+		loadRooms: function() {
+			console.log('loadRooms');
+			if (!this.app.roomsList.length) return this.app.roomsList.fetch();
+		},
 
-    	preload: function() {
-    		console.log('preload');
-    	},
+		preload: function() {
+			console.log('preload');
+		},
 
-    	execute: function(/*callback, args, name*/) {
-    		var self = this,
-    			args = arguments;
+		execute: function(/*callback, args, name*/) {
+			var self = this,
+				args = arguments;
 
 
-    		console.log('execute ', arguments);
-    		if (this._firstMatch && this.onEnter) {
-    			var onEnter = fncombiner(bindRoutesToContext(this.onEnter, this));
-    			this._defersToWait.push(onEnter());
-	    		this._firstMatch = false;
-    		}
+			console.log('execute ', arguments);
+			if (this._firstMatch && this.onEnter) {
+				var onEnter = fncombiner(bindRoutesToContext(this.onEnter, this));
+				this._defersToWait.push(onEnter());
+				this._firstMatch = false;
+			}
 
-    		$.when.apply($, this._defersToWait).done(function() {
-    			Backbone.Router.prototype.execute.apply(self, args);
-    		});
-    	},
+			$.when.apply($, this._defersToWait).done(function() {
+				Backbone.Router.prototype.execute.apply(self, args);
+			});
+		},
 
-    	_onRouteChange: function() {
-    		console.log('_onRouteChange');
-    	},
+		_onRouteChange: function() {
+			console.log('_onRouteChange');
+		},
 
 		onEnter: function() {
 		},

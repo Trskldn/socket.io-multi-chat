@@ -27,7 +27,6 @@ define([
 		},
 
 		showRooms: function(roomId) {
-			var self = this;
 			var room;
 
 

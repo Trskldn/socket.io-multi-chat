@@ -5,9 +5,7 @@ define([
 
 	return Backbone.Router.extend({
 		routes: {
-			 '': 'defaultRoute',
-			 // 'home': 'testhomePage',
- 			// '*mod/*rest': 'loadModule',
+			'': 'defaultRoute',
 			'*module(/*hash)': 'loadModule'		
 		},
 
@@ -28,7 +26,7 @@ define([
 		},
 
 		defaultRoute: function() {
-	    	Backbone.history.navigate("/home", true);
+			Backbone.history.navigate("/home", true);
 		},
 
 		loadModule: function(moduleName, hash) {
@@ -55,7 +53,7 @@ define([
 				// }
 			},function(error) {
 				console.log('error loaded ',arguments);
-		    	Backbone.history.navigate("/");
+				Backbone.history.navigate("/");
 			});
 			// return false;
 		},

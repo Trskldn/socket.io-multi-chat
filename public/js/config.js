@@ -16,29 +16,33 @@ require.config({
 		},
 
 		'backbone.routemanager': {
-			"deps" :['backbone']
+			"deps": ['backbone']
 		},
 
-		'bootstrap' : {
-			"deps" :['jquery']
+		'bootstrap': {
+			"deps": ['jquery']
 		}
 	},
 
 	paths: {
-		jquery: './../components/jquery/dist/jquery',
-		underscore: './../components/underscore/underscore',
-		backbone: './../components/backbone/backbone',
-		pagejs: './../components/page/page',
+		'jquery': './../components/jquery/dist/jquery',
+		'underscore': './../components/underscore/underscore',
+		'backbone': './../components/backbone/backbone',
+		'pagejs': './../components/page/page',
 		'backbone-fetch-cache': './../components/backbone-fetch-cache/backbone.fetch-cache',
-		bootstrap: "./../components/bootstrap/dist/js/bootstrap",
+		'bootstrap': "./../components/bootstrap/dist/js/bootstrap",
 		'backbone.routemanager': "./../components/backbone.routemanager/backbone.routemanager",
 		'socket.io': "./../components/socket.io-client/socket.io",
-		text: "./../components/text/text",
-		'underscore.string': "./../components/underscore.string/underscore.string"
+		'text': "./../components/text/text",
+		'underscore.string': "./../components/underscore.string/underscore.string",
+		'backbone.inherited': "./../components/backbone.inherited/backbone.inherited",
+		'backbone.multi-extend': "./../components/backbone.multi-extend/backbone.multi-extend"
 	}
 });
 
-require(['app'], function (App) {
-	window.app = new App();
-	app.start();
+require(['backbone.multi-extend'], function() {
+	require(['app'], function(App) {
+		window.app = new App();
+		app.start();
+	});
 });

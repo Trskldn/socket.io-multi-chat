@@ -10,7 +10,7 @@ define([
 
 	var App = function () {
 		this._started = false;
-		this.initialize();
+		this.initialize()
 	};
 
 	_.extend(App.prototype, Backbone.Events, {
@@ -34,7 +34,9 @@ define([
 		_onAuthChange: function() {
 			console.log('_onAuthChange');
 			app.socket.disconnect();
-			app.socket.connect();
+			setTimeout(function() {
+				app.socket.connect();
+			}, 10);
 			// this.socket.reconnect();
 		}
 	});

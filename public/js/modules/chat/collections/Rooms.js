@@ -1,54 +1,64 @@
 define([
-'backbone', 
-'./../models/Room',
-'./Messages',
-'./Users'
-], 
+		'backbone',
+		'./../models/Room',
+		'./Messages',
+		'./Users',
+		'core/utils/BindSocketEventsMixin'
+	],
+	function(Backbone, RoomModel, Messages, Users, BindSocketEventsMixin) {
+		var Rooms = Backbone.Collection.extend([{
+			url: "/rooms",
 
-function(Backbone, RoomModel, Messages, Users) {
+			model: RoomModel,
 
-	var Rooms = Backbone.Collection.extend({
-		url: "/rooms",
-		model: RoomModel,
-		currentSelected: null,
-		sync: Backbone.IoSync,
-		twoWaySync:true,
-		socket: app.socket,
+			currentSelected: null,
 
-		initialize: function() {
-			Backbone.Collection.prototype.initialize.apply(this, arguments);
-			this.socket.on('create', _.bind(this._onCreate, this));
-			this.socket.on('delete', _.bind(this._onDelete, this));
-		},
+			sync: Backbone.IoSync,
 
-		_onCreate: function() {
+			twoWaySync: true,
 
-		},
+			socket: app.socket,
 
-		_onDelete: function() {
+			socketEvents: {
+				'room_create': '_onRoomCreate',
+				'room_remove': '_onRoomRemove'
+			},
 
-		},
-		
-		parse: function(data) {
-			return data.data;
-		},
+			// initialize: function() {
+			// 	// Backbone.Collection.prototype.initialize.apply(this, arguments);
+			// 	this.inherited('initialize', arguments);
+			// 	// this.socket.on('create', _.bind(this._onCreate, this));
+			// 	// this.socket.on('delete', _.bind(this._onDelete, this));
+			// },
 
-		setSelected: function(id) {
-			var model = this.get(id),	
-				oldSelect;
-			
-			if (this.currentSelected && (oldSelect = this.get(this.currentSelected))) {	
-				oldSelect.unselect();
+			_onRoomCreate: function() {
+				console.log('_onRoomCreate');
+			},
+
+			_onRoomRemove: function() {
+				console.log('_onRoomRemove');
+			},
+
+			parse: function(data) {
+				return data.data;
+			},
+
+			setSelected: function(id) {
+				var model = this.get(id),
+					oldSelect;
+
+				if (this.currentSelected && (oldSelect = this.get(this.currentSelected))) {
+					oldSelect.unselect();
+				}
+				model.select();
+				this.currentSelected = id;
+				this.trigger('selected', id);
+			},
+
+			getSelected: function() {
+				return this.get(this.currentSelected);
 			}
-			model.select();
-			this.currentSelected = id;
-			this.trigger('selected', id);
-		},
+		}, BindSocketEventsMixin]);
 
-		getSelected: function() {
-			return this.get(this.currentSelected);
-		}
+		return Rooms;
 	});
-
-	return Rooms;
-});
