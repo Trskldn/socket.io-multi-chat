@@ -10,9 +10,7 @@ define([
 		model: MessageModel,
 
 		sync: Backbone.IoSync,
-
 		cap: 20,
-
 		socketEvents: {
 			'message': '_onMessageRecive'
 		},

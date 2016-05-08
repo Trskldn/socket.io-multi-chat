@@ -1,7 +1,7 @@
 define(['backbone'], function(Backbone) {
 
 	var Message = Backbone.Model.extend({
-		defaults:{
+		defaults: {
 			text: '',
 			timestamp: new Date(),
 			userId: '',
@@ -10,7 +10,9 @@ define(['backbone'], function(Backbone) {
 			thread: ''
 		},
 
-		sync: Backbone.IoSync,
+		urlRoot: 'message',
+
+		sync: Backbone.IoSync
 	});
 
 	return Message;

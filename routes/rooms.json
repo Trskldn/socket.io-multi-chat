@@ -1,0 +1,24 @@
+[{
+  "name": "Backbone",
+  "id": 1,
+  "users": [],
+  "messages": [{
+    "text": "hi message!",
+    "timestamp": 1462700013830,
+    "id": 1,
+    "user": "name3",
+    "userId": 1,
+    "threadId": 1,
+    "thread": "Backbone"
+  }]
+}, {
+  "name": "Angularjs",
+  "id": 2,
+  "users": [],
+  "messages": []
+}, {
+  "name": "React",
+  "id": 3,
+  "users": [],
+  "messages": []
+}]

@@ -1,16 +1,18 @@
 define(['backbone'], function(Backbone) {
 	var Session = Backbone.Model.extend({
 		defaults: {
-			username: 'username',
+			username: 'test',
 			password: 'password'
 		},
-		
+
 		urlRoot: '/login',
 
 		initialize: function() {
 			Backbone.Model.prototype.initialize.apply(this, arguments);
 			this.on('destroy', function() {
-				this.set({'isLogged': false});
+				this.set({
+					'isLogged': false
+				});
 			});
 			this.on('change:isLogged', this._onLoggedChange, this);
 		},
@@ -18,7 +20,7 @@ define(['backbone'], function(Backbone) {
 		_onLoggedChange: function(session) {
 			var isLogged = session.get('isLogged');
 			console.log('sessiont isloggedtriger', isLogged);
-			this.trigger(isLogged ?  'signin' : 'signout');
+			this.trigger(isLogged ? 'signin' : 'signout');
 		}
 	});
 

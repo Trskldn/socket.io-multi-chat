@@ -1,5 +1,5 @@
 define(['backbone', "text!./../templates/LoginView.html", "core/common"], function(Backbone, LoginViewTmpl, Common) {
-	var LoginView =  Common.ModelView.extend({
+	var LoginView = Common.ModelView.extend({
 		template: LoginViewTmpl,
 
 		events: {
@@ -12,11 +12,12 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 			var password = this.$el.find('input[name=password]').val();
 			e && e.preventDefault();
 			console.log('_onSubmit click', username, password);
-			// ses.save();		
-			app.socket.disconnect();
-			setTimeout(function() {
-				app.socket.connect();
-			}, 10);
+			// ses.save();
+			app.session.save();
+			// app.socket.disconnect();
+			// setTimeout(function() {
+			// 	app.socket.connect();
+			// }, 10);
 		}
 	});
 

@@ -9,8 +9,8 @@ define([
 		model: UserModel,
 
 		socketEvents: {
-			'user_joined': '_onUserJoin',
-			'user_leave': '_onUserLeave'
+			'user_has_joined': '_onUserJoin',
+			'user_has_left': '_onUserLeft'
 		},
 
 		// initialize: function() {
@@ -22,7 +22,7 @@ define([
 			console.log('onUserJoin');
 		},
 
-		_onUserLeave: function() {
+		_onUserLeft: function() {
 			console.log('onUserLeave');
 
 		},

@@ -1,13 +1,13 @@
 define([
-'backbone',
-'./../collections/Messages',
-'./../collections/Users'
+	'backbone',
+	'./../collections/Messages',
+	'./../collections/Users'
 ], function(Backbone, Messages, Users) {
 
 	var Room = Backbone.Model.extend({
 		urlRoot: 'chat',
 
-		defaults: function (){
+		defaults: function() {
 			this.topic = '';
 			this.selected = false;
 		},
@@ -15,11 +15,11 @@ define([
 		initialize: function(attr, options) {
 			this.messages = new Messages(attr.messages);
 			this.messages.threadId = this.get('id');
-			// this.messages.url = this.url()+'/message';
+			// this.messages.url = this.url() + '/message';
 			// this.messages.link('add', 'remove');
-	
+
 			this.users = new Users(attr.users);
-			// this.users.url = this.url()+'/user';
+			// this.users.url = this.url() + '/user';
 			// this.users.link('add', 'remove');
 
 			// this.listenTo(app.vent, this.messages.url, this.addMessage, this);
