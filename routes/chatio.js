@@ -44,7 +44,7 @@ module.exports = function(app) {
 
       io.emit('message', {
         'id': messageId++,
-        'text': data.text,
+        'text': escape(data.text),
         'userId': socket.user._id,
         'user': socket.user.username,
         'threadId': data.threadId,
