@@ -4,6 +4,7 @@ var config = require('nconf');
 var _ = require('lodash');
 const crypto = require('crypto');
 var escape = require('escape-html');
+var validate = require("validate.js");
 
 var tempUser;
 module.exports = function(app) {
@@ -70,12 +71,12 @@ module.exports = function(app) {
     }, 3000);
 
     socket.on('signup', function(data, done) {
-      var token, errors = db.usersSchmea.validate(data);
+      var token, errors = validate(data, db.usersSchema);
 
-      if (errors.length) {
+      if (errors) {
         return done({
           success: false,
-          message: errors.join()
+          message: _.map(errors, (item)=> item.toString()).toString() 
         });
       }
 
@@ -93,6 +94,7 @@ module.exports = function(app) {
         const pswdHash = crypto.createHash('sha256');
         pswdHash.update(data.password);
         data.password = pswdHash.digest('hex');
+        
         db.users.insert(data, function(err, user) {
           if (err) {
             return done({

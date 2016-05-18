@@ -1,15 +1,16 @@
-var schema = require('validate');
-
-module.exports = schema({
+module.exports = {
   username: {
-    type: 'string',
-    required: true,
-    message: 'Username is required',
-    match: /[a-z]{2,15}/
+    presence: true,
+    format:{
+      pattern: '[a-z0-9]+',
+      flags: "i",
+      message: "can only contain a-z and 0-9" 
+    }
   },
   password: {
-    type: 'string',
-    required: true,
-    message: 'Password is required'
+    presence: true,
+    length: {
+      minimum: 3
+    }
   }
-});
+};
