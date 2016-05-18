@@ -20,33 +20,13 @@ module.exports = function(app) {
 
   io.sockets.on('connect', function(socket) {
 
-    // log.info(socket.handshake);
-    // log.info(socket.request);
     console.log('SOCKET CONNECTTED')
-    try {
-      console.log(socket.request.session.passport.user);
-    } catch (e) {
-      console.log('!!! no user data');
-    }
 
     /*
     catch all socket event
      */
     // socket.on('*', function(data) {
-    //   // console.log('* ', data);
-    //   console.log('SOCKET', data, JSON.stringify(socket.request.session));
-    //   // console.log('sessionID', socket.request.sessionID);
-    //   // console.log('passport.user', socket.request.session.passport.user);
     // });
-    socket.on('me:read', function(data) {
-      console.log('me:read ', data);
-      socket.emit('me:read', {
-        name: 'new name',
-        success: true
-      });
-    });
-
-
 
     socket.on('rooms:read', function() {
       console.log('rooms:read ');
@@ -78,25 +58,7 @@ module.exports = function(app) {
       socket.emit('message:read', rooms);
     });
 
-    socket.on('chat:1:message:create', function(data) {
-      // console.log('chat:1:message:create ',data);
-      data.id = messageId++;
-      data.success = true;
-      data.userId = socket.id;
-      // console.log('chat:1:message:create ',data);
-
-      io.emit('chat:1:message:add', data);
-    });
-
     var msgSpamInterval = setInterval(function() {
-      // socket.emit('chat:1:message:add', {
-      //   id: messageId++,
-      //   'text': 'test' + messageId,
-      //   'userId': 1,
-      //   user: 'username',
-      //   'threadId': 1,
-      //   timestamp: Date.now()
-      // });
       socket.emit('message', {
         id: messageId++,
         'text': 'test' + messageId,
@@ -121,7 +83,6 @@ module.exports = function(app) {
       db.users.find({
         username: data.username
       }, function(err, users) {
-        console.log(users)
         if (users.length) {
           return done({
             success: false,
@@ -149,7 +110,7 @@ module.exports = function(app) {
           });
         });
 
-
+ 
       });
 
     });
@@ -169,14 +130,13 @@ module.exports = function(app) {
         } catch (e) {
           return done({success:false, message:'invalid token'});
         }
-        console.log(payload);
+        socket.user = _.clone(payload);
         return done({success:true, user: payload, token: data.token});
       }
 
       db.users.findOne({
         username: username
       }, function(err, user) {
-        console.log(err, user);
 
         if (err || !user) {
           return done({
@@ -196,7 +156,6 @@ module.exports = function(app) {
         }
 
         socket.user = _.clone(user);
-        console.log('socket.user', socket.user)
         done({
           success: true,
           token: jwt.encode(_.pick(user, ['username', '_id']), config.get('session').secret),
@@ -206,7 +165,7 @@ module.exports = function(app) {
     });
 
     socket.on('disconnect', function() {
-      console.log('SOCKET <DISCONNECTED></DISCONNECTED>');
+      console.log('SOCKET DISCONNECTED');
       clearInterval(msgSpamInterval);
     });
   });
