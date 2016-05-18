@@ -110,7 +110,7 @@ module.exports = function(app) {
           });
         });
 
- 
+
       });
 
     });
@@ -128,10 +128,30 @@ module.exports = function(app) {
         try {
           payload = jwt.decode(data.token, config.get('session').secret);
         } catch (e) {
-          return done({success:false, message:'invalid token'});
+          return done({
+            success: false,
+            message: 'invalid token'
+          });
         }
-        socket.user = _.clone(payload);
-        return done({success:true, user: payload, token: data.token});
+        db.users.findOne({
+          username: payload.username
+        }, function(err, user) {
+          if (user) {
+            socket.user = _.clone(payload);
+            return done({
+              success: true,
+              user: payload,
+              token: data.token
+            });
+
+          } else {
+            return done({
+              success: false,
+              message: 'invalid token'
+            });
+
+          }
+        });
       }
 
       db.users.findOne({

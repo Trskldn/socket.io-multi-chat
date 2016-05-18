@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone){
+define(['backbone'], function(Backbone) {
 
   var ModelView = Backbone.View.extend({
     attachElContent: function(html) {
@@ -14,13 +14,13 @@ define(['backbone'], function(Backbone){
       // template, if not assume that is a CSS selector where
       // the template is defined and is compatible with
       // underscore templates
-      if (_.isFunction( this.template)) {
+      if (_.isFunction(this.template)) {
         renderedHtml = this.template(data);
       } else if (_.isString(this.template)) {
         var compiledTemplate = this.compileTemplate();
         renderedHtml = compiledTemplate(data);
       }
-      return renderedHtml;   
+      return renderedHtml;
     },
 
     render: function() {
@@ -61,8 +61,8 @@ define(['backbone'], function(Backbone){
   });
 
   var CollectionView = ModelView.extend({
-     // childContainer
-     // template
+    // childContainer
+    // template
 
     initialize: function(options) {
       ModelView.prototype.initialize.apply(this, arguments);
@@ -119,7 +119,9 @@ define(['backbone'], function(Backbone){
     renderModel: function(model) {
       // Create a new view instance, modelView should be
       // redefined as a subclass of Backbone.View
-      var view = new this.modelView({model: model});
+      var view = new this.modelView({
+        model: model
+      });
 
       // Keep track of which view belongs to a model
       this.children[model.cid] = view;
@@ -145,7 +147,9 @@ define(['backbone'], function(Backbone){
     // Close all the live childrens
     closeChildren: function() {
       var children = this.children || {};
-      _.each(children, function(child) { this.closeChildView(child);}, this );
+      _.each(children, function(child) {
+        this.closeChildView(child);
+      }, this);
     },
 
     // Close a single children at time
@@ -169,52 +173,52 @@ define(['backbone'], function(Backbone){
     }
   });
 
-  var Region = function(options)  {
-      this.el = options.el;
-    };
+  var Region = function(options) {
+    this.el = options.el;
+  };
 
-    _.extend(Region.prototype, {
-      show: function(view) {
-        this.closeView(this.currentView);
-        this.currentView = view;
-        this.openView(view);
-      },
+  _.extend(Region.prototype, {
+    show: function(view) {
+      this.closeView(this.currentView);
+      this.currentView = view;
+      this.openView(view);
+    },
 
-      closeView: function(view) {
-        // Only remove the view when the remove function
-        // is available
-        if (view && view.remove) {
-          view.remove();
-        }
-      },
-
-      openView: function(view) {
-        // Be sure that this.$el exists
-        this.ensureEl();
-
-        // Render the view on the this.$el element
-        view.render();
-        this.$el.html(view.el);
-
-        // Callback when the view is in the DOM
-        if (view.onShow) {
-          view.onShow();
-        }
-      },
-
-      // Create the this.$el attribute if do not exists
-      ensureEl: function() {
-        if (this.$el) return;
-        this.$el = $(this.el);
-      },
-
-      // Close the Region and any view on it
-      remove: function() {
-        this.closeView(this.currentView);
+    closeView: function(view) {
+      // Only remove the view when the remove function
+      // is available
+      if (view && view.remove) {
+        view.remove();
       }
+    },
 
-    });
-    // Closes any active view and render a new one
+    openView: function(view) {
+      // Be sure that this.$el exists
+      this.ensureEl();
+
+      // Render the view on the this.$el element
+      view.render();
+      this.$el.html(view.el);
+
+      // Callback when the view is in the DOM
+      if (view.onShow) {
+        view.onShow();
+      }
+    },
+
+    // Create the this.$el attribute if do not exists
+    ensureEl: function() {
+      if (this.$el) return;
+      this.$el = $(this.el);
+    },
+
+    // Close the Region and any view on it
+    remove: function() {
+      this.closeView(this.currentView);
+    }
+
+  });
+  // Closes any active view and render a new one
   var Layout = ModelView.extend({
 
     render: function() {
@@ -240,7 +244,9 @@ define(['backbone'], function(Backbone){
       // in the this._regions attribute
       _.each(regionDefinitions, function(selector, name) {
         var $el = this.$(selector);
-        this[name] = this._regions[name] = new Region({el: $el});
+        this[name] = this._regions[name] = new Region({
+          el: $el
+        });
       }, this);
     },
 
@@ -261,12 +267,17 @@ define(['backbone'], function(Backbone){
       var regions = this._regions || {};
 
       // Close each active region
-      _.each(regions, function (region) {
+      _.each(regions, function(region) {
         if (region && region.remove) region.remove();
       });
     }
   });
 
- return {ModelView:ModelView, CollectionView:CollectionView, Region:Region, Layout:Layout};
+  return {
+    ModelView: ModelView,
+    CollectionView: CollectionView,
+    Region: Region,
+    Layout: Layout
+  };
 
 });
