@@ -15,6 +15,7 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 			e && e.preventDefault();
 			form[0].reset();
 			app.socket.emit('login', data, function(data) {
+         this.$el.find('.signin').toggleClass('has-error', !data.success);
 				if (data.token) {
 					localStorage.setItem('token', data.token);
 					app.session.setUser(data.user);

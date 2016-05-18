@@ -3,6 +3,7 @@ var jwt = require('jwt-simple');
 var config = require('nconf');
 var _ = require('lodash');
 const crypto = require('crypto');
+var escape = require('escape-html');
 
 var tempUser;
 module.exports = function(app) {

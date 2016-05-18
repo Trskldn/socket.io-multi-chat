@@ -6,3 +6,4 @@ components
 *.log
 sessions
 log
+db/*.db
