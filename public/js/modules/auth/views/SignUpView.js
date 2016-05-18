@@ -20,7 +20,6 @@ define([
         e && e.preventDefault();
         form[0].reset();
         app.socket.emit('signup', data, function(res) {
-          console.log(res);
           this.$el.find('.signin').toggleClass('has-error', !res.success);
           if (res.success) {
             app.session.setUser(res.user);

@@ -45,10 +45,6 @@ define([
           };
 
         app.socket.emit("message", message);
-
-        // messages.create(message, {
-        //   wait: true
-        // });
       },
 
       showMessageAndUsersView: function() {

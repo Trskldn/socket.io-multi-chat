@@ -15,7 +15,6 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 			e && e.preventDefault();
 			form[0].reset();
 			app.socket.emit('login', data, function(data) {
-				console.log(data);
 				if (data.token) {
 					localStorage.setItem('token', data.token);
 					app.session.setUser(data.user);
@@ -27,13 +26,6 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 					this.$el.find('.error').text(data.message);
 				}
 			}.bind(this));
-			// app.session.save();
-			// app.socket.disconnect();
-			// setTimeout(function() {
-			// 	app.socket.connect();
-			// }, 10);
-
-
 		}
 	});
 

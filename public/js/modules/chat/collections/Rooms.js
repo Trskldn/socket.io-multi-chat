@@ -24,13 +24,6 @@ define([
 				'room_remove': '_onRoomRemove'
 			},
 
-			// initialize: function() {
-			// 	// Backbone.Collection.prototype.initialize.apply(this, arguments);
-			// 	this.inherited('initialize', arguments);
-			// 	// this.socket.on('create', _.bind(this._onCreate, this));
-			// 	// this.socket.on('delete', _.bind(this._onDelete, this));
-			// },
-
 			_onRoomCreate: function() {
 				console.log('_onRoomCreate');
 			},
