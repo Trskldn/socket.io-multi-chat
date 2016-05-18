@@ -11,7 +11,7 @@ require.config({
 		},
 
 		'backbone': {
-			deps: ['underscore', 'jquery', 'text'],
+			deps: ['underscore', 'jquery', 'text', 'jquery.serializeJSON'],
 			exports: 'Backbone'
 		},
 
@@ -36,13 +36,27 @@ require.config({
 		'text': "./../components/text/text",
 		'underscore.string': "./../components/underscore.string/underscore.string",
 		'backbone.inherited': "./../components/backbone.inherited/backbone.inherited",
-		'backbone.multi-extend': "./../components/backbone.multi-extend/backbone.multi-extend"
+		'backbone.multi-extend': "./../components/backbone.multi-extend/backbone.multi-extend",
+		'jquery.serializeJSON': "./../components/jquery.serializeJSON/jquery.serializejson"
 	}
 });
 
 require(['backbone.multi-extend'], function() {
 	require(['app'], function(App) {
 		window.app = new App();
-		app.start();
+		app.socket.on('connect', function() {
+			var token = localStorage.getItem('token');
+
+			if (token) {
+				app.socket.emit('login', {
+					token: token
+				}, function(data) {
+					app.session.setUser(data.user);
+					app.start();
+				});
+			} else {
+				app.start();
+			}
+		});
 	});
 });

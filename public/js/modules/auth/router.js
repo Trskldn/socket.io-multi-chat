@@ -1,9 +1,9 @@
-define(['backbone', './views/LoginView'], function(Backbone, LoginView) {
+define(['backbone', './views/LoginView', './views/SignUpView'], function(Backbone, LoginView, SignUpView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			'auth/login': 'showLogin',
 			'auth/signup': 'showSignup',
-			'auth/logout': 'showLogout',
+			'auth/logout': 'doLogout',
 			'auth': 'defaultRoute' 
 		},
 
@@ -21,11 +21,16 @@ define(['backbone', './views/LoginView'], function(Backbone, LoginView) {
 		},
 
 		showSignup: function() {
-
+			var signUpView = new SignUpView();
+			this.options.app.region.show(signUpView);
 		},
 
-		showLogout: function() {
-			
+		doLogout: function() {
+			app.socket.emit('logout', function() {
+				localStorage.setItem('token', void 0);
+				app.session.setUser();
+				Backbone.history.navigate("home", {replace:true, trigger: true}); 
+			});
 		}
 	});
 

@@ -3,11 +3,19 @@
     <div class="panel-body">
     </div>
     <div class="panel-footer">
+        <% if (app.session.get('isLogged')) { %>
     	<div class="input-group">
 			<input type="text" class="form-control" placeholder="Start typing here..."> 
 			<span class="input-group-btn">
 				<button class="btn btn-primary" type="button">Send</button>
 			</span>
 	    </div>
+        <% } else { %>
+            <div class="text-center">
+            please
+                <a href="#auth/login">login</a> 
+                first, for start typing
+            </div>
+        <% } %>
     </div>
 </div>

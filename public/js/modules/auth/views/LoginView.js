@@ -8,16 +8,32 @@ define(['backbone', "text!./../templates/LoginView.html", "core/common"], functi
 		},
 
 		_onSubmit: function(e) {
-			var username = this.$el.find('input[name=username]').val();
-			var password = this.$el.find('input[name=password]').val();
+			var form = this.$el.find('form'),
+				data = form.serializeJSON();
+
+			this.$el.find('.error').text('');
 			e && e.preventDefault();
-			console.log('_onSubmit click', username, password);
-			// ses.save();
-			app.session.save();
+			form[0].reset();
+			app.socket.emit('login', data, function(data) {
+				console.log(data);
+				if (data.token) {
+					localStorage.setItem('token', data.token);
+					app.session.setUser(data.user);
+					Backbone.history.navigate('chat', {
+						trigger: true
+					});
+				}
+				if (!data.success) {
+					this.$el.find('.error').text(data.message);
+				}
+			}.bind(this));
+			// app.session.save();
 			// app.socket.disconnect();
 			// setTimeout(function() {
 			// 	app.socket.connect();
 			// }, 10);
+
+
 		}
 	});
 

@@ -13,6 +13,7 @@ module.exports = {
         "linebreak-style": [
             "error",
             "unix"
-        ]
+        ],
+        "no-console": 0
     }
 };

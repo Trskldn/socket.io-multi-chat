@@ -17,27 +17,16 @@ define([
 		initialize: function () {
 			this.mainRegion = new Common.Region({el: "#main"});
 			this.navRegion = new Common.Region({el: "#nav"});
-			this.socket = io(location.origin);
+			this.socket = io();
 			this.vent = _.extend({}, Backbone.Events);
 			this.session = session;
-			this.listenTo(this.session, 'signin signout', this._onAuthChange, this);
 		},
 	
 		start: function() {
 			if (this._started) return;
 			this.route = new Route({region: this.mainRegion});
 			Backbone.history.start({ pushState: false });
-			console.log('applications start');
 			this._started = true;
-		},
-
-		_onAuthChange: function() {
-			console.log('_onAuthChange');
-			app.socket.disconnect();
-			setTimeout(function() {
-				app.socket.connect();
-			}, 10);
-			// this.socket.reconnect();
 		}
 	});
 

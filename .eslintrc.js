@@ -7,12 +7,14 @@ module.exports = {
     "globals": {
         "_": true,
         "app": true,
-        "Backbone": true
+        "Backbone": true,
+        "console": true
     },
     "rules": {
         "linebreak-style": [
             "error",
             "unix"
-        ]
+        ],
+        "no-console":0
     }
 };

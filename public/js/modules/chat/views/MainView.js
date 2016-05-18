@@ -39,7 +39,6 @@ define([
 
       sendMessageToRoom: function(text, id /*?*/ ) {
         var curRoom = this.roomsList.get(id || this.roomsList.currentSelected),
-          // messages = curRoom.messages,
           message = {
             text: text,
             threadId: curRoom.get('id')

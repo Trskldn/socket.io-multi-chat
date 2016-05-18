@@ -1,20 +1,25 @@
-define(['backbone'], function(Backbone) {
+define(['backbone', './../shared/models/User'], function(Backbone, User) {
 	var Session = Backbone.Model.extend({
 		defaults: {
-			username: 'test',
-			password: 'password'
+			isLogged: false
 		},
 
 		urlRoot: '/login',
 
 		initialize: function() {
-			Backbone.Model.prototype.initialize.apply(this, arguments);
-			this.on('destroy', function() {
-				this.set({
-					'isLogged': false
-				});
-			});
+			this.user = new User();
+			this.inherited('initialize', arguments);
 			this.on('change:isLogged', this._onLoggedChange, this);
+		},
+
+		setUser: function(user) {
+			if (user) {
+				app.session.set('isLogged', true);
+				app.session.user.set(user);
+			} else {
+				app.session.set('isLogged', false);
+				app.session.user.clear();
+			}
 		},
 
 		_onLoggedChange: function(session) {

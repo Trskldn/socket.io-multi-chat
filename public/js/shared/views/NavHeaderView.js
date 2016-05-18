@@ -14,26 +14,12 @@ define([
 
       initialize: function() {
         Common.ModelView.prototype.initialize.apply(this, arguments);
-        this.listenTo(Backbone.history, 'route', this._changeRoute);
-        this.listenTo(app.session, 'change:isLogged', this._onAuthChange);
+        this.listenTo(Backbone.history, 'route', this.render, this);
+        this.listenTo(app.session, 'change:isLogged', this.render, this);
       },
 
-      _onAuthChange: function() {
-        app.session
-        this.$el.find('a[data-auth]').each(function(i, el) {
-          console.log();
-          var $el = $(el);
-
-          $el.toggleClass('hide', app.session.get('isLogged') != $el.data('auth'));
-        });
-      },
-
-      render: function() {
-        this.inherited('render', arguments);;
-        this._onAuthChange();
-      },
-
-      _changeRoute: function() {
+      onRender: function() {
+        this.inherited('onRender', arguments);
         this.highlightMenuItem();
       },
 
