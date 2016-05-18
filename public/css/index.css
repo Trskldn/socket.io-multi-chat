@@ -16,3 +16,7 @@ mediumseagreen
 	max-width: 250px;
 	margin: 0px auto;	
 }
+
+.badge.unread {
+  background-color: #2196f3;
+}

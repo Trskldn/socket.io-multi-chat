@@ -48,11 +48,14 @@ define([
       },
 
       showMessageAndUsersView: function() {
+        var curRoom = this.roomsList.getSelected();
+
         this.messagesView = new MessagesView({
-          collection: this.roomsList.getSelected().messages
+          collection: curRoom.messages,
+          model: curRoom
         });
         this.usersView = new UsersView({
-          collection: this.roomsList.getSelected().users
+          collection: curRoom.users
         });
         this.getRegion('messages').show(this.messagesView);
         this.getRegion('users').show(this.usersView);
