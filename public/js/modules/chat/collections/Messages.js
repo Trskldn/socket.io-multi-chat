@@ -10,14 +10,16 @@ define([
 		model: MessageModel,
 
 		sync: Backbone.IoSync,
+		
 		cap: 20,
+
 		socketEvents: {
 			'message': '_onMessageRecive'
 		},
 
 		_onMessageRecive: function(message) {
 			// console.log('_onMessageRecive ', message);
-			this.add(message);
+			if (message.threadId == this.threadId) this.add(message);
 		}
 	}, BindSocketEventsMixin]);
 

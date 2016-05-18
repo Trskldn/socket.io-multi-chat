@@ -39,11 +39,10 @@ module.exports = function(app) {
     socket.on('message', function(data) {
       console.log('MESSAGE ', data);
       console.log('FROM USER', socket.user);
-      var user = socket.request.session.user;
 
       if (!socket.user) return;
 
-      socket.emit('message', {
+      io.emit('message', {
         'id': messageId++,
         'text': data.text,
         'userId': socket.user._id,
@@ -64,7 +63,7 @@ module.exports = function(app) {
         'text': 'test' + messageId,
         'userId': 1,
         user: 'username',
-        'threadId': 1,
+        'threadId': Math.round(1+Math.random()*2),
         timestamp: Date.now()
       });
     }, 3000);

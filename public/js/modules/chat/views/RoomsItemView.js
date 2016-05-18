@@ -5,7 +5,7 @@ define(['backbone',
 
 		var RoomsItemView =  Common.ModelView.extend({
 			tagName: 'a',
-	
+
 			className: function() {
 				return 'list-group-item ' + (this.model.get('selected') ? 'active' : ''); 
 			},

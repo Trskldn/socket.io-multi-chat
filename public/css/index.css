@@ -1,5 +1,13 @@
+@font-face {
+  font-family: "source-sans-pro";
+  src: url("/fonts/SourceSansPro-Regular.otf.woff");
+}
 body {
 	background-color: mediumseagreen;
+  font-family: source-sans-pro,pt sans,calibri,sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
 }
 /*
 steelblue
@@ -19,4 +27,25 @@ mediumseagreen
 
 .badge.unread {
   background-color: #2196f3;
+}
+
+.chat-item {
+  margin-top: 9px;
+}
+
+
+.chat-item_from {
+  color: #333;
+  font-weight: 600;
+  opacity: .7;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-item_text {
+  color: #000;
+}
+
+.chat-item_avatar {
+  padding-top: 6px;
 }

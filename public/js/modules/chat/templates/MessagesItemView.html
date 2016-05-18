@@ -1,1 +1,8 @@
-<%= user %>:<%= text %>
+  <div class="media-left chat-item_avatar">
+      <!-- <img class="media-object" src="https://api.adorable.io/avatars/40/<%= user %>.png"> -->
+      <img class="media-object img-rounded" src="http://www.avatarpro.biz/avatar/<%= user %>?s=30">
+  </div>
+  <div class="media-body chat-item_content">
+    <div class="media-heading chat-item_from"><%= user %></div>
+    <div class="chat-item_text"><%= text %></div>    
+  </div>

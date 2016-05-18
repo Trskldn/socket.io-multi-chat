@@ -4,6 +4,10 @@ define(['backbone',
 	],	function(Backbone, MessagesItemTmpl, Common) {
 
 		var MessagesItem =  Common.ModelView.extend({
+      className: 'media chat-item',
+
+      tag: 'div',
+      
 			template: MessagesItemTmpl
 		});
 
