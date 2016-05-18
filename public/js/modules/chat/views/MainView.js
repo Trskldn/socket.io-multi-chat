@@ -59,6 +59,7 @@ define([
         });
         this.getRegion('messages').show(this.messagesView);
         this.getRegion('users').show(this.usersView);
+        this.messagesView.scrollToLastItem();
       },
 
       showMessagesForRoom: function(id) {

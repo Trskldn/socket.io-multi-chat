@@ -23,6 +23,10 @@ function(Backbone, MessagesViewTmpl, MessagesItemView, Common) {
 		},
 
 		_onMessageAdd: function() {
+			this.scrollToLastItem();
+		},
+
+		scrollToLastItem: function() {
 			var el = this.$el.find('.chat-item:last')[0];
 			el && el.scrollIntoView();
 		},
