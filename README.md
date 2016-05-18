@@ -9,4 +9,4 @@ Singlepage chat application
 
 http://localhost:8080
 
-demo: https://backbone-socketio-chat.herokuapp.com/
+demo: http://socketio-multi-chat.herokuapp.com/
