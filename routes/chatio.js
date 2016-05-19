@@ -170,11 +170,10 @@ module.exports = function(app) {
         const pswdHash = crypto.createHash('sha256');
         pswdHash.update(data.password);
         if (user.password !== pswdHash.digest('hex')) {
-          done({
+          return done({
             success: false,
             message: 'invalid password'
           });
-          return;
         }
 
         socket.user = _.clone(user);
