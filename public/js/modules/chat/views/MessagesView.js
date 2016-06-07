@@ -1,50 +1,50 @@
 define([
-'backbone', 
-"text!./../templates/MessagesView.html", 
-'./MessagesItemView',
-'core/common'], 
-function(Backbone, MessagesViewTmpl, MessagesItemView, Common) {
+       'backbone', 
+       "text!./../templates/MessagesView.html", 
+       './MessagesItemView',
+       'core/common'], 
+       function(Backbone, MessagesViewTmpl, MessagesItemView, Common) {
 
-	var MessagesView = Common.CollectionView.extend({
-		template: MessagesViewTmpl,
+	   var MessagesView = Common.CollectionView.extend({
+	       template: MessagesViewTmpl,
 
-		modelView: MessagesItemView,
+	       modelView: MessagesItemView,
 
-		childContainer: '.panel-body',
+	       childContainer: '.panel-body',
 
-		events: {
-			'click button': '_onSendClick',
-			'keydown input': '_onKeyDown'
-		},
+	       events: {
+		   'click button': '_onSendClick',
+		   'keydown input': '_onKeyDown'
+	       },
 
-		initialize: function() {
-			this.inherited('initialize', arguments);
-			this.listenTo(this.collection, 'add', this._onMessageAdd, this);
-		},
+	       initialize: function() {
+		   this.inherited('initialize', arguments);
+		   this.listenTo(this.collection, 'add', this._onMessageAdd, this);
+	       },
 
-		_onMessageAdd: function() {
-			this.scrollToLastItem();
-		},
+	       _onMessageAdd: function() {
+		   this.scrollToLastItem();
+	       },
 
-		scrollToLastItem: function() {
-			var el = this.$el.find('.chat-item:last')[0];
-			el && el.scrollIntoView();
-		},
+	       scrollToLastItem: function() {
+		   var el = this.$el.find('.chat-item:last')[0];
+		   el && el.scrollIntoView();
+	       },
 
-		_onKeyDown: function(e) {
-			if (e && e.keyCode == 13) this._onSendClick(e);
-		},
+	       _onKeyDown: function(e) {
+		   if (e && e.keyCode == 13) this._onSendClick(e);
+	       },
 
-		_onSendClick: function(e) {
-			var $input = this.$el.find('input'),
-				text = $input.val();
-			
-			e && e.preventDefault();
-			if (text == '') return;
-			$input.val('');
-			app.vent.trigger('message:send', text);
-		}
-	});
+	       _onSendClick: function(e) {
+		   var $input = this.$el.find('input'),
+		   text = $input.val();
 
-	return MessagesView;
-});
+		   e && e.preventDefault();
+		   if (text == '') return;
+		   $input.val('');
+		   app.vent.trigger('message:send', text);
+	       }
+	   });
+
+	   return MessagesView;
+       });

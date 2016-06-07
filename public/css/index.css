@@ -48,7 +48,7 @@ mediumseagreen
 
 .chat-item_text {
   color: #000;
-  word-break: break-word;
+  word-break: break-all;
 }
 
 .chat-item_avatar {

@@ -1,0 +1,10 @@
+{
+  "libs": [
+    "lodash",
+"backbone",
+    "moment"
+  ],
+  "plugins": {
+    "node": {}
+  }
+}

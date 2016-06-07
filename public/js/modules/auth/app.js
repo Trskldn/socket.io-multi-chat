@@ -1,24 +1,22 @@
 define(['backbone', './router'], function(Backbone, Router) {	
-	var AuthApp = function(options) {
-		this.region = options.region;
-		this.router = new Router({app: this});
-		Backbone.history.loadUrl();
-		
-		// this.render();
-	};
-	_.extend(AuthApp.prototype, {
-		initialize: function() {
+    var AuthApp = function(options) {
+	this.region = options.region;
+	this.router = new Router({app: this});
+	Backbone.history.loadUrl();
+    };
+    _.extend(AuthApp.prototype, {
+	initialize: function() {
 
-		},
-		
-		start: function() {
+	},
 
-		},
+	start: function() {
 
-		close: function() {
+	},
 
-		}
-	});
+	close: function() {
 
-	return AuthApp;
+	}
+    });
+
+    return AuthApp;
 });

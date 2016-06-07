@@ -10,29 +10,18 @@ var user = {
 
 passport.use(new LocalStrategy(
 	function(username, pasword, done) {
-
-		if (username == 'test') return done(null, user);
-		else done(null, false);
+	    if (username == 'test') return done(null, user);
+	    else done(null, false);
 	}
 ));
 
 passport.serializeUser(function (user, done) {
-    // done(null, JSON.stringify(user));
-	console.log('serializeUser', user);
-
     done(null, user.id);
-
 });
  
  
 passport.deserializeUser(function (data, done) {
-	console.log('deserializeUser', data);
-	return done(null, user);
-//     try {
-//         done(null, JSON.parse(data));
-//     } catch (e) {
-//         done(err);
-//     }
+    return done(null, user);
 });
  
 module.exports = function(app) {

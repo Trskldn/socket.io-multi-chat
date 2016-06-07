@@ -1,18 +1,18 @@
 define(['backbone', 
-	"text!./../templates/RoomsListView.html",
-	"./RoomsItemView",
-	"core/common"
-	],	function(Backbone, RoomsViewTmpl, RoomsItemView, Common) {
+       "text!./../templates/RoomsListView.html",
+       "./RoomsItemView",
+       "core/common"
+],	function(Backbone, RoomsViewTmpl, RoomsItemView, Common) {
 
-		var RoomsListView =  Common.CollectionView.extend({
-			
-			template: RoomsViewTmpl,
-			
-			modelView: RoomsItemView, 
+    var RoomsListView =  Common.CollectionView.extend({
 
-			childContainer: '.teams-list'
+	template: RoomsViewTmpl,
 
-		});
+	modelView: RoomsItemView, 
 
-		return RoomsListView;
+	childContainer: '.teams-list'
+
+    });
+
+    return RoomsListView;
 });

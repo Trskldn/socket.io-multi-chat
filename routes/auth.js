@@ -10,14 +10,14 @@ module.exports = function(app) {
 		}
 	});
 
-	app.post('/login', 
-		passport.authenticate('local'), 
+	app.post('/login',
+		passport.authenticate('local'),
 		function(req, res) {
 			res.json({isLogged:true, id: req.user.id, username: req.user.username});
 		});
 
-	app.put('/login(/:id)?', 
-		passport.authenticate('local'), 
+	app.put('/login(/:id)?',
+		passport.authenticate('local'),
 		function(req, res) {
 			console.log("req.user", req.user);
 			res.json({isLogged:true, id: req.user.id, username: req.user.username});

@@ -17,9 +17,6 @@ define(['backbone', 'underscore'], function(Backbone, _) {
                 this._messages.push(data);
                 this.trigger('change', data);
                 this.trigger('add', data);
-                // _.each(data, function(message) {
-                //     this._messages.push(message);
-                // },this);
             },
 
             _onMessageRead: function (data) {

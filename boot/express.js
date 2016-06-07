@@ -1,12 +1,10 @@
 var express = require('express'),
   config = require('nconf'),
   bodyParser = require('body-parser'),
-  // morgan = require('morgan'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
   sessionFileStore = require('session-file-store')(session),
   sessionOptions = config.get('session'),
-  // sharedsession = require("express-socket.io-session"),
   path = require('path'),
   log4js = require('log4js'),
   log = log4js.getLogger(),
@@ -24,7 +22,6 @@ module.exports = function(app) {
   app.use(log4js.connectLogger(log4js.getLogger("http"), {
     level: 'auto'
   }));
-  // app.use(morgan('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
@@ -42,7 +39,6 @@ module.exports = function(app) {
     next();
   });
 
-  // app.get('io').use(sharedsession(session(sessionOptions), {autoSave: true}));
   app.get('io').use(function(socket, next) {
     // Wrap the express middleware
     sessionMiddleware(socket.request, {}, next);

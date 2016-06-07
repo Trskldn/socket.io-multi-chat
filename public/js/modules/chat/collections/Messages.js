@@ -1,7 +1,6 @@
 define([
 	'backbone',
 	'./../models/Message',
-	// 'core/linkSocketMixin',
 	'core/CappedCollection',
 	'core/utils/BindSocketEventsMixin'
 ], function(Backbone, MessageModel, /*linkSocketMixin,*/ CappedCollection, BindSocketEventsMixin) {
@@ -18,12 +17,9 @@ define([
 		},
 
 		_onMessageRecive: function(message) {
-			// console.log('_onMessageRecive ', message);
 			if (message.threadId == this.threadId) this.add(message);
 		}
 	}, BindSocketEventsMixin]);
 
-	// _.extend(Messages.prototype, linkSocketMixin);
-	// _.extend(Messages.prototype, BindSocketEventsMixin);
 	return Messages;
 });

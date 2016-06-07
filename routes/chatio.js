@@ -24,12 +24,6 @@ module.exports = function(app) {
 
     console.log('SOCKET CONNECTTED')
 
-    /*
-    catch all socket event
-     */
-    // socket.on('*', function(data) {
-    // });
-
     socket.on('rooms:read', function() {
       console.log('rooms:read ');
       socket.emit('rooms:read', {
@@ -55,7 +49,6 @@ module.exports = function(app) {
     });
 
     socket.on('message:read', function() {
-      console.log('message:read ');
       socket.emit('message:read', rooms);
     });
 

@@ -17,17 +17,7 @@ define([
 			this.messages = new Messages(attr.messages);
 			this.messages.threadId = this.get('id');
 			this.listenTo(this.messages, 'add', this._onNewMessageAdd, this);
-
-			// this.messages.url = this.url() + '/message';
-			// this.messages.link('add', 'remove');
-
 			this.users = new Users(attr.users);
-
-			// this.users.url = this.url() + '/user';
-			// this.users.link('add', 'remove');
-
-			// this.listenTo(app.vent, this.messages.url, this.addMessage, this);
-			// this.listenTo(app.vent, this.users.url, this.addUser, this);
 		},
 
 		_onNewMessageAdd: function() {

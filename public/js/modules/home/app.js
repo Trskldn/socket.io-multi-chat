@@ -3,8 +3,6 @@ define(['backbone', './router'], function(Backbone, Router) {
 		this.region = options.region;
 		this.router = new Router({app: this});
 		Backbone.history.loadUrl();
-		
-		// this.render();
 	};
 	_.extend(homePageApp.prototype, {
 		initialize: function() {
